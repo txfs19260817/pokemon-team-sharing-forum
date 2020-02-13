@@ -49,7 +49,6 @@ func AddTeam(c *gin.Context) {
 		})
 	}()
 
-	// TODO: 图片链接处理
 	if err := c.ShouldBindJSON(&team); err != nil {
 		code = e.INVALID_PARAMS
 		log.Printf("ERROR: %s\n", err)

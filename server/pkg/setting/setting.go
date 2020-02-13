@@ -2,6 +2,7 @@ package setting
 
 import (
 	"log"
+	"strconv"
 	"time"
 
 	"github.com/go-ini/ini"
@@ -12,6 +13,7 @@ var (
 
 	RunMode string
 
+	HTTPURL string
 	HTTPPort int
 	ReadTimeout time.Duration
 	WriteTimeout time.Duration
@@ -43,6 +45,7 @@ func LoadServer() {
 	}
 
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
+	HTTPURL = sec.Key("URL").MustString("http://127.0.0.1") + ":" + strconv.Itoa(HTTPPort)
 	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
 	WriteTimeout =  time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
 }
