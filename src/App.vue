@@ -1,16 +1,16 @@
 <template>
-    <div id="app">
-        <el-button type="info" @click="dialogformvisible = true">打开嵌套表单的 Dialog</el-button>
-        <teamform :dialogformvisible.sync="dialogformvisible"></teamform>
-        <router-view></router-view>
-    </div>
+  <div id="app">
+    <el-button type="info" @click="updateFormVisible">打开嵌套表单的 Dialog</el-button>
+    <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible"></teamform>
+  </div>
 </template>
 
 <script>
     import teamform from './components/Submit'
+
     export default {
         name: 'app',
-        components:{
+        components: {
             teamform
         },
         data() {
@@ -19,8 +19,9 @@
             }
         },
         methods: {
-            updateFormVisible(b){
-                this.dialogformvisible = b;
+            updateFormVisible() {
+                this.dialogformvisible = true;
+                setTimeout(this.$refs.formRef.resetForm, 100);
             }
         }
     }

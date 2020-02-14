@@ -28,8 +28,6 @@ func InitRouter() *gin.Engine {
 		apiv1.PUT("/teams/:id", v1.EditTeam)
 		// 删除指定标签
 		apiv1.DELETE("/teams/:id", v1.DeleteTeam)
-		// 获取模式列表
-		apiv1.GET("/formats", v1.GetFormats)
 		// 上传图片
 		apiv1.POST("/upload", v1.UploadImage)
 	}
