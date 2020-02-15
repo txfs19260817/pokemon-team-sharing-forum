@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-button type="info" @click="updateFormVisible">打开嵌套表单的 Dialog</el-button>
+    <el-button type="info" @click="updateFormVisible">提交队伍</el-button>
     <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible"></teamform>
   </div>
 </template>

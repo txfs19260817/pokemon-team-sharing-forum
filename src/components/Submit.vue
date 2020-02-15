@@ -1,6 +1,6 @@
 <template>
     <div id="teamform">
-        <el-dialog title="队伍表格" :visible.sync="dialogformvisible" :before-close="closeForm">
+        <el-dialog title="队伍表格" :visible.sync="dialogformvisible" :before-close="closeForm" width="70%">
             <el-form :model="form" ref="teamFormRef" :rules="loginFormRules">
                 <el-form-item label="标题" :label-width="formLabelWidth" prop="title">
                     <el-input v-model="form.title" autocomplete="off"></el-input>
@@ -81,7 +81,7 @@
                     <el-upload
                             :action=uploadUrl
                             name="upload"
-                            list-type="picture-card" h
+                            list-type="picture-card"
                             :limit=1
                             :before-upload="handleBeforeUpload"
                             :on-exceed="handleExceed"
@@ -99,7 +99,7 @@
                             type="textarea"
                             :rows="3"
                             placeholder="请将Pokemon Showdown队伍文本粘贴至此处"
-                            v-model.lazy="form.showdown"
+                            v-model="form.showdown"
                             maxlength="1600">
                     </el-input>
                 </el-form-item>
@@ -116,7 +116,16 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="closeForm">取 消</el-button>
-                <el-button type="primary" @click="submitForm">确 定</el-button>
+                <el-button type="primary" @click="submitDialogVisible = true">确 定</el-button>
+                <el-dialog title="确认提交" :visible.sync="submitDialogVisible" width="56%" append-to-body>
+                    <span><b>是否确认提交？</b></span><br />
+                    <span>如果你输入了Showdown队伍文本，下面会显示相应的队伍预览图。</span>
+                    <showdown2img :pokemonlist="parsedShowdown"></showdown2img>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="submitDialogVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="submitForm">确 定</el-button>
+                    </span>
+                </el-dialog>
             </div>
         </el-dialog>
     </div>
@@ -125,6 +134,7 @@
 <script>
     import {Formats} from "../assets/data/formats";
     import {Koffing} from 'koffing';
+    import showdown2img from "./Showdown2Img"
 
     const PokemonNames = require('../assets/data/pokemonNames.js');
 
@@ -185,6 +195,8 @@
                 // Upload image dialog properties
                 dialogImageUrl: '',
                 dialogVisible: false,
+                // submit dialog
+                submitDialogVisible: false,
             }
         },
         created() {
@@ -200,7 +212,7 @@
             ).map(e => e.join('/'));
         },
         methods: {
-            // for this form dialog
+            // for the form
             resetForm() {
                 this.$refs.teamFormRef.resetFields();
             },
@@ -209,6 +221,7 @@
                 this.$emit("update:dialogformvisible", this.dialogformvisible)
             },
             submitForm() {
+                this.submitDialogVisible = false;
                 this.$refs.teamFormRef.validate(async valid => {
                     if (!valid) return;
 
@@ -257,7 +270,6 @@
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
-                console.log(this.dialogImageUrl)
             },
             handleSuccess(response, file, fileList) {
                 if (response.code !== 200) {
@@ -265,19 +277,20 @@
                     return
                 }
                 this.form.rentalImgUrl = response.data;
-                console.log(response);
             }
         },
         computed: {
             uploadUrl() {
                 return this.url + "api/v1/upload"
             },
-            // TODO: parse showdown -> generate css -> css to img
-            parseShowdown() {
-                let parsedTeam = Koffing.parse(this.form.showdown);
-                return parsedTeam.teams[0].pokemon
-            },
+            // TODO: $watch parse showdown -> generate css -> css to img
+            parsedShowdown() {
+                return Koffing.parse(this.form.showdown).teams[0].pokemon;
+            }
         },
+        components: {
+            showdown2img
+        }
     }
 </script>
 

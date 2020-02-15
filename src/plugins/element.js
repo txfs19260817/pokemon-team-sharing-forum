@@ -11,3 +11,4 @@ Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);
 Vue.prototype.$message = Message;
+// Vue.prototype.$loading = Loading.service;
