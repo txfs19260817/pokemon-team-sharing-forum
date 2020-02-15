@@ -216,6 +216,7 @@
                     function processPokemon(pname) {
                         return (pname === '') ? '' : pname.split('/', 1)[0]
                     }
+
                     this.form.pokemon1 = processPokemon(this.form.pokemon1);
                     this.form.pokemon2 = processPokemon(this.form.pokemon2);
                     this.form.pokemon3 = processPokemon(this.form.pokemon3);
@@ -259,15 +260,18 @@
                 console.log(this.dialogImageUrl)
             },
             handleSuccess(response, file, fileList) {
+                if (response.code !== 200) {
+                    this.$message.error('上传失败：' + response.data);
+                    return
+                }
                 this.form.rentalImgUrl = response.data;
-                console.log(this.form.rentalImgUrl);
+                console.log(response);
             }
         },
         computed: {
             uploadUrl() {
                 return this.url + "api/v1/upload"
             },
-            // TODO: rename uploaded image
             // TODO: parse showdown -> generate css -> css to img
             parseShowdown() {
                 let parsedTeam = Koffing.parse(this.form.showdown);

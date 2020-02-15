@@ -13,12 +13,16 @@ var (
 
 	RunMode string
 
-	HTTPURL string
-	HTTPPort int
-	ReadTimeout time.Duration
+	HTTPPort     int
+	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 
-	PageSize int
+	ImagePrefixUrl string
+	ImageSavePath  string
+	ImageMaxSize   int
+	ImageAllowExts string
+
+	PageSize  int
 	JwtSecret string
 )
 
@@ -45,9 +49,8 @@ func LoadServer() {
 	}
 
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
-	HTTPURL = sec.Key("URL").MustString("http://127.0.0.1") + ":" + strconv.Itoa(HTTPPort)
 	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
-	WriteTimeout =  time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
+	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
 }
 
 func LoadApp() {
@@ -55,6 +58,11 @@ func LoadApp() {
 	if err != nil {
 		log.Fatalf("Fail to get section 'app': %v", err)
 	}
+
+	ImagePrefixUrl = sec.Key("ImagePrefixUrl").MustString("http://127.0.0.1:" + strconv.Itoa(HTTPPort))
+	ImageSavePath = sec.Key("ImageSavePath").MustString("assets/teams/")
+	ImageMaxSize = sec.Key("ImageMaxSize").MustInt(2) * 1024 * 1024
+	ImageAllowExts = sec.Key("ImageAllowExts").MustString(".jpg,.jpeg,.png")
 
 	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
