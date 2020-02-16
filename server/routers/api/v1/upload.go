@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"server/models"
 	"server/pkg/e"
 	"server/pkg/setting"
 	"server/pkg/upload"
@@ -55,6 +56,37 @@ func UploadImage(c *gin.Context) {
 
 	// save file
 	data, err = upload.SaveImage(file, filename)
+	if err != nil {
+		code = e.ERROR
+		data = fmt.Sprintf("ERROR (Saving file): %s\n", err)
+		log.Println(data)
+		return
+	}
+}
+
+// Upload Base64 Image
+func UploadBase64Image(c *gin.Context) {
+	code := e.SUCCESS
+	data := ""
+
+	defer func() {
+		c.JSON(http.StatusOK, gin.H{
+			"code": code,
+			"msg":  e.GetMsg(code),
+			"data": data,
+		})
+	}()
+
+	var base64 models.Base64
+	err := c.BindJSON(&base64)
+	if err != nil {
+		code = e.INVALID_PARAMS
+		data = fmt.Sprintf("ERROR (Parsing JSON): %s\n", err)
+		log.Println(data)
+		return
+	}
+
+	data, err = upload.DecodeBase64AndSave(base64.Base64Str)
 	if err != nil {
 		code = e.ERROR
 		data = fmt.Sprintf("ERROR (Saving file): %s\n", err)

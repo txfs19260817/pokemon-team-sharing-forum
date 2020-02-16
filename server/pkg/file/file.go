@@ -50,7 +50,7 @@ func IsNotExistMkDir(src string) error {
 func Rename(name string) string {
 	ext := path.Ext(name)
 	fileName := strings.TrimSuffix(name, ext)
-	fileName = util.EncodeMD5(fileName) + time.Now().Format("20060102150405000")
+	fileName =  time.Now().Format("20060102150405000") + "T" + util.EncodeMD5(fileName)
 
 	return fileName + ext
 }

@@ -1,15 +1,15 @@
 <template>
-    <div class="team-outer" v-show="true">
+    <div id="preview" class="team-outer" v-show="true">
         <ul>
             <li v-for="(pm, index) in pokemon" :id="'pm'+index">
                 <div class="team-pokemon">
                     <div class="team-pokemon-info">
                         <div class="team-pokemon-info-basic">
                             <div class="team-pokemon-info-basic-pokemon-icon">
-                                <img class="pokemon-icon" :alt="pm.name" :src="iconPath(pm.name, pmIconBaseUrl)"/>
+                                <img class="pokemon-icon" :alt="pm.name" :src="iconPath(pm.name, pmIconBaseUrl)" />
                             </div>
                             <div class="team-pokemon-info-basic-item-icon">
-                                <img class="item-icon" :src="iconPath(pm.item, itemIconBaseUrl)"/>
+                                <img class="item-icon" :alt="pm.item" :src="iconPath(pm.item, itemIconBaseUrl)" />
                             </div>
                             <div class="team-pokemon-info-basic-type-icons">
                                 <img v-for="type in pokedex[processStr(pm.name)].types"
@@ -21,25 +21,9 @@
                         <div class="team-pokemon-info-item">{{pm.item}}</div>
                     </div>
                     <div class="team-pokemon-moves">
-                        <div class="team-pokemon-move">
-                            <object :data="iconPath(movedex[processStr(pm.moves[0])].type, movetypeIconBaseUrl)"
-                                    type="image/svg+xml"></object>
-                            <div class="move-name">{{pm.moves[0]}}</div>
-                        </div>
-                        <div class="team-pokemon-move">
-                            <object :data="iconPath(movedex[processStr(pm.moves[1])].type, movetypeIconBaseUrl)"
-                                    type="image/svg+xml"></object>
-                            <div class="move-name">{{pm.moves[1]}}</div>
-                        </div>
-                        <div class="team-pokemon-move">
-                            <object :data="iconPath(movedex[processStr(pm.moves[2])].type, movetypeIconBaseUrl)"
-                                    type="image/svg+xml"></object>
-                            <div class="move-name">{{pm.moves[2]}}</div>
-                        </div>
-                        <div class="team-pokemon-move">
-                            <object :data="iconPath(movedex[processStr(pm.moves[3])].type, movetypeIconBaseUrl)"
-                                    type="image/svg+xml"></object>
-                            <div class="move-name">{{pm.moves[3]}}</div>
+                        <div class="team-pokemon-move" v-for="m in pm.moves">
+                            <img :alt="m" :src="iconPath(m, movetypeIconBaseUrl)" />
+                            <div class="move-name">{{m}}</div>
                         </div>
                     </div>
                 </div>
@@ -64,10 +48,10 @@
                 pokedex: {},
                 movedex: {},
                 pokemon: this.pokemonlist,
-                pmIconBaseUrl: 'https://gitee.com/txfsVGC/pokemon-icons/raw/master/Pokemon_icons/2d/',
-                itemIconBaseUrl: 'https://gitee.com/txfsVGC/pokemon-icons/raw/master/Pokemon_icons/items/',
-                typeIconBaseUrl: 'https://gitee.com/txfsVGC/pokemon-icons/raw/master/Pokemon_icons/types/',
-                movetypeIconBaseUrl: 'https://gitee.com/txfsVGC/pokemon-icons/raw/master/Pokemon_icons/movetypes/',
+                pmIconBaseUrl: 'http://127.0.0.1:8888/assets/pokemon-icons/2d/',
+                itemIconBaseUrl: 'http://127.0.0.1:8888/assets/pokemon-icons/items/',
+                typeIconBaseUrl: 'http://127.0.0.1:8888/assets/pokemon-icons/types/',
+                movetypeIconBaseUrl: 'http://127.0.0.1:8888/assets/pokemon-icons/movetypes/',
                 ext: '.png',
             }
         },
@@ -78,12 +62,13 @@
         },
         methods: {
             processStr(s) {
-                return s.replace(/[-\s]/g, '').toLowerCase();
+                return s.replace(/[-\s\[\]']/g, '').toLowerCase();
             },
             iconPath(name, baseUrl) {
                 name = this.processStr(name);
                 if (baseUrl.substr(baseUrl.length - 10) === "movetypes/") {
-                    return baseUrl + name + '.svg'
+                    name = this.movedex[name].type.toLowerCase();
+                    return baseUrl + name + this.ext
                 }
                 if (baseUrl.substr(baseUrl.length - 6) === "types/") {
                     let lang = "eng";
@@ -239,7 +224,7 @@
         justify-content: flex-start;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-moves .team-pokemon-move object {
+    .team-outer ul li .team-pokemon .team-pokemon-moves .team-pokemon-move img {
         margin: 0 2px;
         width: 15%;
     }

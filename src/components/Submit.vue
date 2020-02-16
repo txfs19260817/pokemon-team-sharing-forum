@@ -82,10 +82,12 @@
                             :action=uploadUrl
                             name="upload"
                             list-type="picture-card"
+                            accept="image/jpeg,image/jpg,image/png"
                             :limit=1
+                            :drag="true"
                             :before-upload="handleBeforeUpload"
                             :on-exceed="handleExceed"
-                            accept="image/jpeg,image/jpg,image/png"
+                            :on-remove="handleRemove"
                             :on-success="handleSuccess"
                             :on-preview="handlePictureCardPreview">
                         <i class="el-icon-plus"></i>
@@ -118,8 +120,13 @@
                 <el-button @click="closeForm">取 消</el-button>
                 <el-button type="primary" @click="submitDialogVisible = true">确 定</el-button>
                 <el-dialog title="确认提交" :visible.sync="submitDialogVisible" width="56%" append-to-body>
-                    <span><b>是否确认提交？</b></span><br />
-                    <span>如果你输入了Showdown队伍文本，下面会显示相应的队伍预览图。</span>
+                    <el-alert
+                            title="是否确认提交？"
+                            type="warning"
+                            description="请对将要提交的内容加以确认。如果输入了Showdown队伍文本，下面会显示相应的队伍预览图。如果没有上传队伍租借ID图片，这张图将作为代替显示在我们的网站上，否则会使用上传的租借ID图。"
+                            :closable="false"
+                            show-icon>
+                    </el-alert>
                     <showdown2img :pokemonlist="parsedShowdown"></showdown2img>
                     <span slot="footer" class="dialog-footer">
                         <el-button @click="submitDialogVisible = false">取 消</el-button>
@@ -135,6 +142,7 @@
     import {Formats} from "../assets/data/formats";
     import {Koffing} from 'koffing';
     import showdown2img from "./Showdown2Img"
+    import html2canvas from 'html2canvas';
 
     const PokemonNames = require('../assets/data/pokemonNames.js');
 
@@ -173,7 +181,7 @@
                 loginFormRules: {
                     title: [
                         {required: true, message: '请输入标题', trigger: 'blur'},
-                        {min: 1, max: 10, message: '长度在 1 到 20 个字符', trigger: 'blur'}
+                        {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
                     ],
                     author: [
                         {required: true, message: '请输入作者名', trigger: 'blur'},
@@ -197,6 +205,8 @@
                 dialogVisible: false,
                 // submit dialog
                 submitDialogVisible: false,
+                // generated image
+                b64code: 10086
             }
         },
         created() {
@@ -212,6 +222,22 @@
             ).map(e => e.join('/'));
         },
         methods: {
+            // generate image and post
+            async screenshot() {
+                let that = this;
+                await html2canvas(document.getElementById('preview'), {
+                    useCORS: true
+                }).then(async canvas => {
+                    const res = await this.$http.post('uploadb64', {base64: canvas.toDataURL()});
+                    that.b64code = res.data.code;
+                    if (res.data.code !== 200) {
+                        that.form.rentalImgUrl = ''
+                    }
+                    else {
+                        that.form.rentalImgUrl = res.data.data
+                    }
+                });
+            },
             // for the form
             resetForm() {
                 this.$refs.teamFormRef.resetFields();
@@ -220,9 +246,21 @@
                 this.dialogformvisible = false;
                 this.$emit("update:dialogformvisible", this.dialogformvisible)
             },
-            submitForm() {
+            async submitForm() {
                 this.submitDialogVisible = false;
-                this.$refs.teamFormRef.validate(async valid => {
+                if (this.form.rentalImgUrl === '' && this.form.showdown.length <200) {
+                    this.$message.error("租借队伍ID图片和Showdown队伍文本至少需要提交一个");
+                    return;
+                }
+                if (this.form.rentalImgUrl === '') {
+                    await this.screenshot();
+                    if (this.b64code !== 200) {
+                        this.$message.error("生成的队伍预览图提交出错");
+                        return;
+                    }
+                }
+
+                await this.$refs.teamFormRef.validate(async valid => {
                     if (!valid) return;
 
                     // process this form
@@ -239,10 +277,9 @@
                     this.form.format = this.form.format[0];
                     // post
                     const res = await this.$http.post('teams', this.form);
-                    console.log(res);
                     if (res.data.code !== 200) {
                         // FIXME: `res.data.data` is an object
-                        return this.$message.error(res.data.data)
+                        return this.$message.error(JSON.stringify(res.data.data))
                     }
                     this.$message.success('提交成功！请耐心等待审核');
                 });
@@ -267,6 +304,9 @@
             handleExceed(files, fileList) {
                 this.$message.warning(`请删除后重新添加图片`);
             },
+            handleRemove(file, fileList) {
+                this.form.rentalImgUrl = ''
+            },
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
@@ -283,7 +323,6 @@
             uploadUrl() {
                 return this.url + "api/v1/upload"
             },
-            // TODO: $watch parse showdown -> generate css -> css to img
             parsedShowdown() {
                 return Koffing.parse(this.form.showdown).teams[0].pokemon;
             }

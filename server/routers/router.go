@@ -30,6 +30,8 @@ func InitRouter() *gin.Engine {
 		apiv1.DELETE("/teams/:id", v1.DeleteTeam)
 		// 上传图片
 		apiv1.POST("/upload", v1.UploadImage)
+		// 上传base64
+		apiv1.POST("/uploadb64", v1.UploadBase64Image)
 	}
 
 	return r

@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import {Upload, Dialog, Option, Select, Cascader, Button, Form, FormItem, Input, Message} from 'element-ui'
+import {Alert, Upload, Dialog, Option, Select, Cascader, Button, Form, FormItem, Input, Message} from 'element-ui'
 
+Vue.use(Alert);
 Vue.use(Upload);
 Vue.use(Dialog);
 Vue.use(Option);
