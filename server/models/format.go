@@ -30,12 +30,3 @@ var formats = [...]string{
 	"[Gen 8] Galar Newcomers",
 	"Others",
 }
-
-//func GetFormats(c *gin.Context) {
-//	code := e.SUCCESS
-//	c.JSON(http.StatusOK, gin.H{
-//		"code": code,
-//		"msg":  e.GetMsg(code),
-//		"data": formats,
-//	})
-//}

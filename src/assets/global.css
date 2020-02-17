@@ -3,3 +3,10 @@ html, body, #app {
     margin: 0;
     padding: 0;
 }
+
+.el-pagination.is-background .el-pager li:not(.disabled).active{
+    background-color: #1181b2 !important;
+}
+.el-pagination.is-background .el-pager li:hover{
+    color: #1181b2 !important;
+}

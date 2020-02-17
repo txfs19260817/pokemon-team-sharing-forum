@@ -1,6 +1,7 @@
 <template>
     <div id="teamform">
-        <el-dialog title="队伍表格" :visible.sync="dialogformvisible" :before-close="closeForm" width="70%" :modal-append-to-body="false">
+        <el-dialog title="队伍表格" :visible.sync="dialogformvisible" :before-close="closeForm" width="70%"
+                   :modal-append-to-body="false">
             <el-form :model="form" ref="teamFormRef" :rules="loginFormRules">
                 <el-form-item label="标题" :label-width="formLabelWidth" prop="title">
                     <el-input v-model="form.title" autocomplete="off"></el-input>
@@ -152,11 +153,14 @@
             dialogformvisible: {
                 type: Boolean,
                 default: false
-            }
+            },
+            url: {
+                type: String,
+                default: "http://127.0.0.1:8888/"
+            },
         },
         data() {
             return {
-                url: "http://127.0.0.1:8888/",
                 // data to display
                 formats: [],
                 pokemonNames: [],
@@ -232,8 +236,7 @@
                     that.b64code = res.data.code;
                     if (res.data.code !== 200) {
                         that.form.rentalImgUrl = ''
-                    }
-                    else {
+                    } else {
                         that.form.rentalImgUrl = res.data.data
                     }
                 });
@@ -248,7 +251,7 @@
             },
             async submitForm() {
                 this.submitDialogVisible = false;
-                if (this.form.rentalImgUrl === '' && this.form.showdown.length <200) {
+                if (this.form.rentalImgUrl === '' && this.form.showdown.length < 200) {
                     this.$message.error("租借队伍ID图片和Showdown队伍文本至少需要提交一个");
                     return;
                 }
@@ -274,7 +277,7 @@
                     this.form.pokemon4 = processPokemon(this.form.pokemon4);
                     this.form.pokemon5 = processPokemon(this.form.pokemon5);
                     this.form.pokemon6 = processPokemon(this.form.pokemon6);
-                    this.form.format = this.form.format[0];
+                    this.form.format = this.form.format[this.form.format.length - 1];
                     // post
                     const res = await this.$http.post('teams', this.form);
                     if (res.data.code !== 200) {

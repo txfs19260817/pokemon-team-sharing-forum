@@ -1,9 +1,28 @@
 import Vue from 'vue'
-import {Container, Header, Main, Alert, Upload, Dialog, Option, Select, Cascader, Button, Form, FormItem, Input, Message} from 'element-ui'
+import {
+    Pagination,
+    Container,
+    Header,
+    Main,
+    Footer,
+    Alert,
+    Upload,
+    Dialog,
+    Option,
+    Select,
+    Cascader,
+    Button,
+    Form,
+    FormItem,
+    Input,
+    Message
+} from 'element-ui'
 
+Vue.use(Pagination);
 Vue.use(Container);
 Vue.use(Header);
 Vue.use(Main);
+Vue.use(Footer);
 Vue.use(Alert);
 Vue.use(Upload);
 Vue.use(Dialog);
