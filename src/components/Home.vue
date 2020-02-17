@@ -1,6 +1,6 @@
 <template>
     <el-container class="home-container">
-    <!-- header -->
+        <!-- header -->
         <el-header style="height: 180px;">
             <header>
                 <img id="logo" src="../../public/logo.png" alt="Pokemon Team Sharing Forum"/>
@@ -9,10 +9,21 @@
             </header>
         </el-header>
         <el-container>
-    <!-- main -->
+            <!-- main -->
             <el-main>
+                <div class="responsive" v-for="(item, index) in teams">
+                    <div class="gallery">
+                        <img :src="item.src" @click="lightbox(index)" :alt="item.alt" width="512" height="288">
+                        <div class="desc">
+                            <span class="title">{{item.title}}</span>
+                            <span class="author">上传用户：{{item.author}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <photoswipe ref="photoswipe" :items="teams"></photoswipe>
             </el-main>
-    <!-- footer -->
+            <!-- footer -->
             <el-footer>
                 <el-pagination
                         background
@@ -29,11 +40,13 @@
 
 <script>
     import teamform from './Submit'
+    import photoswipe from "./Photoswipe";
 
     export default {
         name: 'home',
         components: {
             teamform,
+            photoswipe
         },
         data() {
             return {
@@ -42,10 +55,10 @@
                 dialogformvisible: false,
                 // data - num
                 total: 1,
-                pageSize: 10,
+                pageSize: 8,
                 curPage: 1,
                 // data
-                teams:[]
+                teams: []
             }
         },
         methods: {
@@ -65,7 +78,7 @@
                     if (res.data.code === 200) {
                         console.log(res);
                         this.total = res.data.data.total;
-                        this.teams.splice(0,this.teams.length); // empty the array
+                        this.teams.splice(0, this.teams.length); // empty the array
                         for (let t of res.data.data.lists) {
                             let d = t;
                             // expand some fields for Photoswipe
@@ -85,9 +98,12 @@
                 })
             },
             // pagination handlers
-            handleCurrentChange(v){
+            handleCurrentChange(v) {
                 this.getTeams(v);
-                this.curPage=v
+                this.curPage = v
+            },
+            lightbox(index) {
+                this.$refs.photoswipe.imagePreview(index);
             }
         },
         created() {
@@ -142,15 +158,14 @@
         top: 10%;
         -webkit-transform: translate(-@left, -@top);
         transform: translate(-@left, -@top);
-        /*color: #cecd24;*/
-        color: #F2F6FC;
+        color: #c83c3c;
         text-decoration: none;
         font-size: 2em;
         display: inline-block;
         font-family: Montserrat, sans-serif;
         text-transform: uppercase;
         padding: 0.5em 2em;
-        border: 2px solid #F2F6FC;
+        border: 2px solid #c83c3c;
         -webkit-transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
         transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
     }
@@ -163,7 +178,7 @@
         left: 0;
         right: 100%;
         bottom: 0;
-        background: #F2F6FC;
+        background: #c83c3c;
         -webkit-transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
         transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
         z-index: -1;
@@ -219,4 +234,60 @@
         text-align: center;
         line-height: 60px;
     }
+
+    /*teams preview https://www.w3schools.com/css/css_image_gallery.asp */
+    div {
+        box-sizing: border-box;
+    }
+
+    div.gallery {
+        margin: 0 0 10px 0;
+        border: 1px solid #ddedf4;
+    }
+
+    div.gallery:hover {
+        border: 1px solid #44449b;
+    }
+
+    div.gallery img {
+        width: 100%;
+        height: auto;
+    }
+
+    div.desc {
+        padding: 15px;
+        /*text-align: center;*/
+        display: flex;
+        justify-content: space-between;
+    }
+    span.author {
+
+        align-self: flex-end;
+    }
+
+    .responsive {
+        padding: 0 6px;
+        float: left;
+        width: 24.99999%;
+    }
+
+    @media only screen and (max-width: 700px) {
+        .responsive {
+            width: 49.99999%;
+            margin: 6px 0;
+        }
+    }
+
+    @media only screen and (max-width: 500px) {
+        .responsive {
+            width: 100%;
+        }
+    }
+
+    .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
 </style>

@@ -5,8 +5,8 @@ html, body, #app {
 }
 
 .el-pagination.is-background .el-pager li:not(.disabled).active{
-    background-color: #1181b2 !important;
+    background-color: #c83c3c !important;
 }
 .el-pagination.is-background .el-pager li:hover{
-    color: #1181b2 !important;
+    color: #c83c3c !important;
 }

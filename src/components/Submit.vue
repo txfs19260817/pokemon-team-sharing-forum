@@ -106,7 +106,7 @@
                             maxlength="1600">
                     </el-input>
                 </el-form-item>
-                <el-form-item label="简介（可选）" :label-width="formLabelWidth" prop="introduction">
+                <el-form-item label="描述（可选）" :label-width="formLabelWidth" prop="introduction">
                     <el-input
                             type="textarea"
                             :rows="3"
@@ -185,7 +185,7 @@
                 loginFormRules: {
                     title: [
                         {required: true, message: '请输入标题', trigger: 'blur'},
-                        {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
+                        {min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur'}
                     ],
                     author: [
                         {required: true, message: '请输入作者名', trigger: 'blur'},
