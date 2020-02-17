@@ -14,9 +14,28 @@
                 <div class="responsive" v-for="(item, index) in teams">
                     <div class="gallery">
                         <img :src="item.src" @click="lightbox(index)" :alt="item.alt" width="512" height="288">
+                        <el-dialog
+                                title="Showdown"
+                                :modal-append-to-body="false"
+                                :visible.sync="dialogshowdownvisible"
+                                width="30%">
+                            <el-input
+                                    id="showdowntext"
+                                    type="textarea"
+                                    v-model="showdownText"
+                                    :rows="6">
+                            </el-input>
+                            <span slot="footer" class="dialog-footer">
+                                <el-button @click="copyButton">Copy to clipboard</el-button>
+                                <el-button type="primary" @click="dialogshowdownvisible = false">确 定</el-button>
+                            </span>
+                        </el-dialog>
                         <div class="desc">
-                            <span class="title">{{item.title}}</span>
-                            <span class="author">上传用户：{{item.author}}</span>
+                            <span class="author">作者：{{item.author}}</span>
+                            <span class="title">{{item.alt}}</span>
+                            <a href="#">
+                                <img id="showdown" src="../../public/showdown.png" @click.stop="showdownButton(index)"  alt="showdown"/>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -24,7 +43,7 @@
                 <photoswipe ref="photoswipe" :items="teams"></photoswipe>
             </el-main>
             <!-- footer -->
-            <el-footer>
+            <el-footer style="height: 65px;">
                 <el-pagination
                         background
                         layout="prev, pager, next"
@@ -53,12 +72,14 @@
                 url: "http://127.0.0.1:8888/",
                 // dialog
                 dialogformvisible: false,
+                dialogshowdownvisible: false,
                 // data - num
                 total: 1,
                 pageSize: 8,
                 curPage: 1,
                 // data
-                teams: []
+                teams: [],
+                showdownText:''
             }
         },
         methods: {
@@ -82,9 +103,10 @@
                         for (let t of res.data.data.lists) {
                             let d = t;
                             // expand some fields for Photoswipe
+                            // alt:=title; title:=author+description
                             d.src = t.rentalImgUrl;
-                            d.thumbnail = t.rentalImgUrl;
                             d.alt = t.title;
+                            d.title = t.author + ': ' + t.description;
                             d.w = 1024;
                             d.h = 576;
                             this.teams.push(d);
@@ -104,6 +126,21 @@
             },
             lightbox(index) {
                 this.$refs.photoswipe.imagePreview(index);
+            },
+            showdownButton(index) {
+                if (this.teams[index].showdown.length > 0) {
+                    this.showdownText = this.teams[index].showdown;
+                    this.dialogshowdownvisible = true;
+                } else {
+                    this.$message.warning("该队伍没有提供showdown队伍文本");
+                    this.dialogshowdownvisible = false;
+                }
+            },
+            copyButton() {
+                let copyText = document.getElementById("showdowntext");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+                document.execCommand("copy");
             }
         },
         created() {
@@ -260,10 +297,6 @@
         display: flex;
         justify-content: space-between;
     }
-    span.author {
-
-        align-self: flex-end;
-    }
 
     .responsive {
         padding: 0 6px;
@@ -289,5 +322,4 @@
         display: table;
         clear: both;
     }
-
 </style>

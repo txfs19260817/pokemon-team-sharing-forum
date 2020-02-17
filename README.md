@@ -1,6 +1,12 @@
 # pokemon-team-sharing-forum
-
+# Looking forward a great logo & volunteers to help internationalize our website. Pull Requests Welcome!
 ## Project setup
+## Backend
+Change directory to `server` and import the .sql file. Then, edit `app.ini` and run
+```$xslt
+go run main.go
+```
+## Frontend
 ```
 npm install
 ```

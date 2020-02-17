@@ -106,12 +106,12 @@
                             maxlength="1600">
                     </el-input>
                 </el-form-item>
-                <el-form-item label="描述（可选）" :label-width="formLabelWidth" prop="introduction">
+                <el-form-item label="描述（可选）" :label-width="formLabelWidth" prop="description">
                     <el-input
                             type="textarea"
                             :rows="3"
                             placeholder="可以在此处简要描述该队伍（不超过200字，过长可附上外部链接）"
-                            v-model="form.introduction"
+                            v-model="form.description"
                             maxlength="200"
                             show-word-limit>
                     </el-input>
@@ -177,7 +177,7 @@
                     pokemon6: '',
                     rentalImgUrl: '',
                     showdown: '',
-                    introduction: '',
+                    description: '',
                     state: 0
                 },
                 // form attributes
@@ -200,7 +200,7 @@
                     showdown: [
                         {min: 0, max: 1600, message: 'Showdown 文本过长', trigger: 'blur'}
                     ],
-                    introduction: [
+                    description: [
                         {min: 0, max: 200, message: '长度在 200 个字符以内', trigger: 'blur'}
                     ]
                 },

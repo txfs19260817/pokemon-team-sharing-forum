@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 
 const routes = [
     { path: '/', redirect: '/home' },
+    { path: '/home&*', redirect: '/home' },//open an image and refresh
     { path: '/home', component: Home },
 ];
 

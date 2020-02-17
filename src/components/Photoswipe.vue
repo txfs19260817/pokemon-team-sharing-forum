@@ -12,6 +12,7 @@
                     <div class="pswp__top-bar">
                         <div class="pswp__counter"></div>
                         <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                        <button class="pswp__button pswp__button--share" title="Share"></button>
                         <div class="pswp__preloader">
                             <div class="pswp__preloader__icn">
                                 <div class="pswp__preloader__cut">
@@ -52,6 +53,9 @@
         data() {
             return {
                 teams: [],
+                index: 1,
+                dialogVisible: false,
+                showdownText: ''
             }
         },
         watch: {
@@ -62,12 +66,13 @@
         methods: {
             imagePreview(currentIndex) {
                 const options = {
-                    index: currentIndex
+                    index: currentIndex,
+                    closeOnScroll: false,
                 };
-
+                this.index = currentIndex;
                 const gallery = new PhotoSwipe(this.$refs.pswb, UI, this.items, options);
                 gallery.init()
-            }
+            },
         }
     }
 </script>

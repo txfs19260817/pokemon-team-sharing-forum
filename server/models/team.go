@@ -21,7 +21,7 @@ type Team struct {
 	Pokemon6     string    `json:"pokemon6"`
 	RentalImgUrl string    `json:"rentalImgUrl"`
 	Showdown     string    `json:"showdown"`
-	Introduction string    `json:"introduction"`
+	Description string    `json:"description"`
 	State        int       `json:"state"`
 }
 
@@ -54,7 +54,7 @@ func (team *Team) TeamValidator(err map[string]string) bool {
 	valid.MinSize(team.Pokemon1, 2, "Pokemon1").Message("请选择至少一只宝可梦")
 	// TODO: 验证6只pm名字合法性
 	// TODO: 验证showdown语法合法性
-	valid.MaxSize(team.Introduction, 300, "Introduction").Message("简介最长为300字符，过长建议附外部链接")
+	valid.MaxSize(team.Description, 300, "Description").Message("简介最长为300字符，过长建议附外部链接")
 	valid.Range(team.State, 0, 1, "State").Message("状态只允许0或1")
 	if valid.HasErrors() {
 		for _, e := range valid.Errors {
