@@ -39,8 +39,8 @@
 <script>
     import PhotoSwipe from 'photoswipe/dist/photoswipe'
     import UI from 'photoswipe/dist/photoswipe-ui-default'
-    import 'photoswipe/dist/photoswipe.css'
-    import 'photoswipe/dist/default-skin/default-skin.css'
+    // import 'photoswipe/dist/photoswipe.css'
+    // import 'photoswipe/dist/default-skin/default-skin.css'
 
     export default {
         name: "photoswipe",

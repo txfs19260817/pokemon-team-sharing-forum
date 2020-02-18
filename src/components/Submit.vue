@@ -120,7 +120,7 @@
             <div slot="footer" class="dialog-footer">
                 <el-button @click="closeForm">取 消</el-button>
                 <el-button type="primary" @click="submitDialogVisible = true">确 定</el-button>
-                <el-dialog title="确认提交" :visible.sync="submitDialogVisible" width="56%" append-to-body>
+                <el-dialog title="确认提交" :visible.sync="submitDialogVisible" width="56%" append-to-body :modal="false">
                     <el-alert
                             title="是否确认提交？"
                             type="warning"

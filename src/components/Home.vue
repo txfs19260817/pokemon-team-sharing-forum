@@ -4,7 +4,7 @@
         <el-header style="height: 180px;">
             <header>
                 <img id="logo" src="../../public/logo.png" alt="Pokemon Team Sharing Forum"/>
-                <a id="submit" href="#" @click="updateFormVisible">Submit</a>
+                <a id="submit" href="#" @click="updateFormVisible">Share</a>
                 <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible" :url="url"></teamform>
             </header>
         </el-header>
@@ -32,13 +32,14 @@
                         </el-dialog>
                         <div class="desc">
                             <div class="column">
-                                <span class="title">{{item.alt}}</span>
+                                <span class="title">[{{item.format}}]{{item.alt}}</span>
                                 <span class="author">作者：{{item.author}}</span>
                             </div>
                             <div class="column">
                                 <span class="time">{{item.created_at}}</span>
                                 <a href="#">
-                                    <img id="showdown" src="../../public/showdown.png" @click.stop="showdownButton(index)" alt="showdown"/>
+                                    <img id="showdown" src="../../public/showdown.png"
+                                         @click.stop="showdownButton(index)" alt="showdown"/>
                                 </a>
                             </div>
                         </div>
@@ -48,10 +49,18 @@
                 <photoswipe ref="photoswipe" :items="teams"></photoswipe>
             </el-main>
             <!-- footer -->
-            <el-footer style="height: 65px;">
-                <div style="width: 100px;">
-                    <!-- dummy to help flex layout -->
-                </div>
+            <el-footer style="height: 62px;">
+                <!-- left: button to open the drawer -->
+                    <img id="about" src="../../public/about.png" width="62" height="62"
+                         @click.stop="drawervisible = true" alt="about"/>
+                <el-drawer
+                        title="About"
+                        :destroy-on-close="true"
+                        :visible.sync="drawervisible"
+                        :direction="'ltr'">
+                    <div class="about" v-html="$t('about')"></div>
+                </el-drawer>
+                <!-- middle: paginator  -->
                 <el-pagination
                         background
                         layout="prev, pager, next"
@@ -60,7 +69,9 @@
                         :page-size="pageSize"
                         :total="total">
                 </el-pagination>
-                <el-select id="lang" size="mini" style="width: 100px;" v-model="curLang" placeholder="Language..." @change="switchLang">
+                <!-- right: language selector  -->
+                <el-select id="lang" size="mini" style="width: 100px;" v-model="curLang" placeholder="Language..."
+                           @change="switchLang">
                     <el-option
                             v-for="item in languages"
                             :key="item"
@@ -87,9 +98,10 @@
                 url: "http://127.0.0.1:8888/",
                 languages: ['zh-hans', 'en', 'ja'],
                 curLang: 'zh-hans',
-                // dialog
+                // dialog and drawer visible
                 dialogformvisible: false,
                 dialogshowdownvisible: false,
+                drawervisible: false,
                 // data - num
                 total: 1,
                 pageSize: 8,
@@ -114,7 +126,6 @@
                     }
                 }).then(res => {
                     if (res.data.code === 200) {
-                        console.log(res);
                         this.total = res.data.data.total;
                         this.teams.splice(0, this.teams.length); // empty the array
                         for (let t of res.data.data.lists) {
@@ -133,7 +144,6 @@
                     }
                 }).catch(err => {
                     this.$message.error("请求数据错误");
-                    console.log(err)
                 })
             },
             // pagination handlers
@@ -296,6 +306,13 @@
         display: flex;
         justify-content: space-between;
         line-height: 60px;
+    }
+
+    div.about {
+        margin: 10px 40px;
+        font-size: 16px;
+        line-height: 20px;
+        padding: 0;
     }
 
     /*teams preview https://www.w3schools.com/css/css_image_gallery.asp */

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {
+    Drawer,
     Pagination,
     Container,
     Header,
@@ -18,6 +19,7 @@ import {
     Message
 } from 'element-ui'
 
+Vue.use(Drawer);
 Vue.use(Pagination);
 Vue.use(Container);
 Vue.use(Header);

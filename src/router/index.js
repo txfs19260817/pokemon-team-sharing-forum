@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from "../components/Home";
+import Home from '../components/Home';
 
 Vue.use(VueRouter);
-
 const routes = [
     { path: '/', redirect: '/home' },
     { path: '/home&*', redirect: '/home' },//open an image and refresh
-    { path: '/home', component: Home },
+    { path: '/home', component: Home },// lazy load () => import('../components/Home')
 ];
 
 const router = new VueRouter({

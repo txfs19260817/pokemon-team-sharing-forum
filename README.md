@@ -3,9 +3,10 @@
 ## Project setup
 ## Backend
 Change directory to `server` and import the .sql file. Then, edit `app.ini` and run
-```$xslt
+```
 go run main.go
 ```
+
 ## Frontend
 ```
 npm install
@@ -23,3 +24,9 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## TODOs
+- [ ] i18n
+- [ ] filter results by formats and pokemon
+- [ ] About Page
+- [ ] Home Page design
