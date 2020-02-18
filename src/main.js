@@ -6,12 +6,14 @@ import './plugins/element.js'
 import './assets/global.css'
 
 import axios from 'axios'
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/v1/';// 配置请求根路径
+import i18n from './i18n'
+axios.defaults.baseURL = 'http://127.0.0.1:8888/api/v1/';
 Vue.prototype.$http = axios;
 
 Vue.config.productionTip = false;
 
 new Vue({
     router,
+    i18n,
     render: h => h(App)
 }).$mount('#app');

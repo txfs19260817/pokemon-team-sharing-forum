@@ -31,11 +31,16 @@
                             </span>
                         </el-dialog>
                         <div class="desc">
-                            <span class="author">作者：{{item.author}}</span>
-                            <span class="title">{{item.alt}}</span>
-                            <a href="#">
-                                <img id="showdown" src="../../public/showdown.png" @click.stop="showdownButton(index)"  alt="showdown"/>
-                            </a>
+                            <div class="column">
+                                <span class="title">{{item.alt}}</span>
+                                <span class="author">作者：{{item.author}}</span>
+                            </div>
+                            <div class="column">
+                                <span class="time">{{item.created_at}}</span>
+                                <a href="#">
+                                    <img id="showdown" src="../../public/showdown.png" @click.stop="showdownButton(index)" alt="showdown"/>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -44,6 +49,9 @@
             </el-main>
             <!-- footer -->
             <el-footer style="height: 65px;">
+                <div style="width: 100px;">
+                    <!-- dummy to help flex layout -->
+                </div>
                 <el-pagination
                         background
                         layout="prev, pager, next"
@@ -52,6 +60,13 @@
                         :page-size="pageSize"
                         :total="total">
                 </el-pagination>
+                <el-select id="lang" size="mini" style="width: 100px;" v-model="curLang" placeholder="Language..." @change="switchLang">
+                    <el-option
+                            v-for="item in languages"
+                            :key="item"
+                            :value="item">
+                    </el-option>
+                </el-select>
             </el-footer>
         </el-container>
     </el-container>
@@ -70,6 +85,8 @@
         data() {
             return {
                 url: "http://127.0.0.1:8888/",
+                languages: ['zh-hans', 'en', 'ja'],
+                curLang: 'zh-hans',
                 // dialog
                 dialogformvisible: false,
                 dialogshowdownvisible: false,
@@ -79,7 +96,7 @@
                 curPage: 1,
                 // data
                 teams: [],
-                showdownText:''
+                showdownText: ''
             }
         },
         methods: {
@@ -124,9 +141,11 @@
                 this.getTeams(v);
                 this.curPage = v
             },
+            // click img to view details
             lightbox(index) {
                 this.$refs.photoswipe.imagePreview(index);
             },
+            // show showdown text
             showdownButton(index) {
                 if (this.teams[index].showdown.length > 0) {
                     this.showdownText = this.teams[index].showdown;
@@ -141,10 +160,16 @@
                 copyText.select();
                 copyText.setSelectionRange(0, 99999);
                 document.execCommand("copy");
+            },
+            switchLang(lang) {
+                this.$i18n.locale = lang;
+                // save lang in localStorage
+                localStorage.setItem('lang', lang);
             }
         },
         created() {
             this.getTeams(1);
+            this.curLang = localStorage.getItem('lang') || 'zh-hans'
         },
     }
 </script>
@@ -268,7 +293,8 @@
     }
 
     .el-footer {
-        text-align: center;
+        display: flex;
+        justify-content: space-between;
         line-height: 60px;
     }
 
@@ -279,11 +305,11 @@
 
     div.gallery {
         margin: 0 0 10px 0;
-        border: 1px solid #ddedf4;
+        border: 1px solid #e8dcdc;
     }
 
     div.gallery:hover {
-        border: 1px solid #44449b;
+        border: 1px solid #c83c3c;
     }
 
     div.gallery img {
@@ -292,8 +318,13 @@
     }
 
     div.desc {
-        padding: 15px;
-        /*text-align: center;*/
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+    }
+
+    div.column {
+        flex-basis: 100%;
         display: flex;
         justify-content: space-between;
     }

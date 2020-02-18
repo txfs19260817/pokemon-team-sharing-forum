@@ -21,7 +21,7 @@ type Team struct {
 	Pokemon6     string    `json:"pokemon6"`
 	RentalImgUrl string    `json:"rentalImgUrl"`
 	Showdown     string    `json:"showdown"`
-	Description string    `json:"description"`
+	Description  string    `json:"description"`
 	State        int       `json:"state"`
 }
 
