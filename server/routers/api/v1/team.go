@@ -11,7 +11,7 @@ import (
 	"server/pkg/util"
 )
 
-//获取多个队伍
+// 获取多个队伍
 func GetTeams(c *gin.Context) {
 	maps := make(map[string]interface{})
 	data := make(map[string]interface{})
@@ -32,10 +32,31 @@ func GetTeams(c *gin.Context) {
 		"msg":  e.GetMsg(code),
 		"data": data,
 	})
-
 }
 
-//新增队伍
+func GetTeamById(c *gin.Context) {
+	var id = -1
+	if arg := c.Param("id"); arg != "" {
+		id = com.StrTo(arg).MustInt()
+		if id == 0 { // Would get the data whose id=1
+			id = -1
+		}
+	}
+
+	code := e.SUCCESS
+
+	data := models.GetTeamById(id)
+	if data.ID == 0 {
+		code = e.INVALID_PARAMS
+	}
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
+}
+
+// 新增队伍
 func AddTeam(c *gin.Context) {
 	var team models.Team
 	code := e.SUCCESS
@@ -66,10 +87,10 @@ func AddTeam(c *gin.Context) {
 	}
 }
 
-//修改队伍
+// 修改队伍
 func EditTeam(c *gin.Context) {
 }
 
-//删除队伍
+// 删除队伍
 func DeleteTeam(c *gin.Context) {
 }

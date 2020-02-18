@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import {
+    Tag,
+    Tabs,
+    TabPane,
     Drawer,
     Pagination,
     Container,
@@ -19,6 +22,9 @@ import {
     Message
 } from 'element-ui'
 
+Vue.use(Tag);
+Vue.use(Tabs);
+Vue.use(TabPane);
 Vue.use(Drawer);
 Vue.use(Pagination);
 Vue.use(Container);

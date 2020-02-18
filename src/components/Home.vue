@@ -3,7 +3,8 @@
         <!-- header -->
         <el-header style="height: 180px;">
             <header>
-                <img id="logo" src="../../public/logo.png" alt="Pokemon Team Sharing Forum"/>
+                <router-link to='/home'><img id="logo" src="../../public/logo.png" alt="Pokemon Team Sharing Forum"/>
+                </router-link>
                 <a id="submit" href="#" @click="updateFormVisible">Share</a>
                 <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible" :url="url"></teamform>
             </header>
@@ -13,7 +14,9 @@
             <el-main>
                 <div class="responsive" v-for="(item, index) in teams">
                     <div class="gallery">
+                        <!--                        team preview-->
                         <img :src="item.src" @click="lightbox(index)" :alt="item.alt" width="512" height="288">
+                        <!--                        showdown text dialog-->
                         <el-dialog
                                 title="Showdown"
                                 :modal-append-to-body="false"
@@ -30,13 +33,19 @@
                                 <el-button type="primary" @click="dialogshowdownvisible = false">确 定</el-button>
                             </span>
                         </el-dialog>
+                        <!-- caption below the image -->
                         <div class="desc">
                             <div class="column">
-                                <span class="title">[{{item.format}}]{{item.alt}}</span>
+                                <!-- title with link to detail page -->
+                                <router-link :to="'/team/'+item.id"><span
+                                        class="title">[{{item.format}}]{{item.alt}}</span></router-link>
+                                <!-- author -->
                                 <span class="author">作者：{{item.author}}</span>
                             </div>
                             <div class="column">
+                                <!-- time -->
                                 <span class="time">{{item.created_at}}</span>
+                                <!-- showdown button to open the dialog -->
                                 <a href="#">
                                     <img id="showdown" src="../../public/showdown.png"
                                          @click.stop="showdownButton(index)" alt="showdown"/>
@@ -51,8 +60,8 @@
             <!-- footer -->
             <el-footer style="height: 62px;">
                 <!-- left: button to open the drawer -->
-                    <img id="about" src="../../public/about.png" width="62" height="62"
-                         @click.stop="drawervisible = true" alt="about"/>
+                <img id="about" src="../../public/about.png" width="62" height="62" @click.stop="drawervisible = true"
+                     alt="about"/>
                 <el-drawer
                         title="About"
                         :destroy-on-close="true"
@@ -187,42 +196,6 @@
 <style scoped>
     @import url("https://fonts.lug.ustc.edu.cn/css?family=Montserrat");
     /* black: #212221 blue: #1181b2 lightblue:#ddedf4 purple:#44449b white:ECF5FF*/
-    .home-container {
-        height: 100%;
-        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-    }
-
-    #logo {
-        height: 50%;
-        position: absolute;
-        left: 0.5%;
-        top: 5%;
-    }
-
-    header {
-        position: sticky;
-        width: 100%;
-        height: 15em;
-    }
-
-    /* Create angled background with 'before' pseudo-element */
-    header::before {
-        content: "";
-        display: block;
-        align-items: end;
-        position: absolute;
-        left: 0;
-        bottom: 6em;
-        width: 100%;
-        height: 24em;
-        z-index: -1;
-        transform: skewY(-2.0deg);
-        background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)),
-        url(../../public/header.jpg) no-repeat center,
-        linear-gradient(#4e4376, #2b5876);
-        background-size: cover;
-        border-bottom: .2em solid #fff;
-    }
 
     #submit {
         position: absolute;
@@ -289,27 +262,10 @@
         transition: right 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
     }
 
-    .el-header, .el-main, .el-footer {
-        background-color: #212221;
-        color: #ddedf4;
-    }
-
-    .el-header {
-        padding: 0;
-    }
-
-    .el-main {
-        padding: 20px 40px;
-    }
-
-    .el-footer {
-        display: flex;
-        justify-content: space-between;
-        line-height: 60px;
-    }
-
     div.about {
-        margin: 10px 40px;
+        height: 600px;
+        overflow: auto;
+        margin: 0px 40px;
         font-size: 16px;
         line-height: 20px;
         padding: 0;

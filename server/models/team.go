@@ -80,13 +80,19 @@ func GetTeamTotal(maps interface{}) (count int) {
 	return
 }
 
+// 根据id获取队伍
+func GetTeamById(id int) (team Team) {
+	db.Where(&Team{ID:id}).First(&team)
+
+	return
+}
+
+// 增加
 func AddTeam(team *Team) error {
 	dbc := db.Create(&team)
 
 	return dbc.Error
 }
-
-// 增加
 // 创建队伍时设置时间的Callback
 func (team *Team) BeforeCreate(scope *gorm.Scope) error {
 	return scope.SetColumn("CreatedAt", time.Now())

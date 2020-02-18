@@ -20,8 +20,10 @@ func InitRouter() *gin.Engine {
 
 	apiv1 := r.Group("/api/v1")
 	{
-		// 获取标签列表
+		// 获取队伍列表
 		apiv1.GET("/teams", v1.GetTeams)
+		// 根据id获取队伍
+		apiv1.GET("/teams/:id", v1.GetTeamById)
 		// 新建标签
 		apiv1.POST("/teams", v1.AddTeam)
 		// 更新指定标签
