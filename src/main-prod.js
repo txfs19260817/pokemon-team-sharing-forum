@@ -7,7 +7,7 @@ import './assets/global.css'
 
 import axios from 'axios'
 import i18n from './i18n'
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/v1/';
+axios.defaults.baseURL = process.env.VUE_APP_URL;
 Vue.prototype.$http = axios;
 
 Vue.config.productionTip = false;

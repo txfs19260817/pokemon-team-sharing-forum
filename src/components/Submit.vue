@@ -124,7 +124,11 @@
                     <el-alert
                             title="是否确认提交？"
                             type="warning"
-                            description="请对将要提交的内容加以确认。如果输入了Showdown队伍文本，下面会显示相应的队伍预览图。如果没有上传队伍租借ID图片，这张图将作为代替显示在我们的网站上，否则会使用上传的租借ID图。"
+                            description="请对将要提交的内容加以确认。
+                            如果输入了Showdown队伍文本，下面会显示相应的队伍预览图。
+                            如果没有上传队伍租借ID图片，这张图将作为代替显示在我们的网站上，否则会使用上传的租借ID图。
+                            如果您没有看见图片生成，或图片异常，
+                            请确保您已提交租借ID图片，并将您的Showdown队伍文本反馈给我们（请点击主页左下角获取联系方式）"
                             :closable="false"
                             show-icon>
                     </el-alert>
@@ -156,7 +160,7 @@
             },
             url: {
                 type: String,
-                default: "http://127.0.0.1:8888/"
+                required: true
             },
         },
         data() {
@@ -185,11 +189,11 @@
                 loginFormRules: {
                     title: [
                         {required: true, message: '请输入标题', trigger: 'blur'},
-                        {min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur'}
+                        {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
                     ],
                     author: [
                         {required: true, message: '请输入作者名', trigger: 'blur'},
-                        {min: 1, max: 15, message: '长度在 1 到 15 个字符', trigger: 'blur'}
+                        {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
                     ],
                     format: [
                         {required: true, message: '请选择对战模式', trigger: 'change'}
@@ -324,7 +328,7 @@
         },
         computed: {
             uploadUrl() {
-                return this.url + "api/v1/upload"
+                return this.url + "upload"
             },
             parsedShowdown() {
                 return Koffing.parse(this.form.showdown).teams[0].pokemon;

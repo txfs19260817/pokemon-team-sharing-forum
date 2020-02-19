@@ -104,7 +104,7 @@
         },
         data() {
             return {
-                url: "http://127.0.0.1:8888/",
+                url: process.env.VUE_APP_URL,
                 languages: ['zh-hans', 'en', 'ja'],
                 curLang: 'zh-hans',
                 // dialog and drawer visible

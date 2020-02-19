@@ -6,10 +6,10 @@
                     <div class="team-pokemon-info">
                         <div class="team-pokemon-info-basic">
                             <div class="team-pokemon-info-basic-pokemon-icon">
-                                <img class="pokemon-icon" :alt="pm.name" :src="iconPath(pm.name, pmIconBaseUrl)" />
+                                <img class="pokemon-icon" :alt="pm.name" :src="iconPath(pm.name, pmIconBaseUrl)"/>
                             </div>
                             <div class="team-pokemon-info-basic-item-icon">
-                                <img class="item-icon" :alt="pm.item" :src="iconPath(pm.item, itemIconBaseUrl)" />
+                                <img class="item-icon" :alt="pm.item" :src="iconPath(pm.item, itemIconBaseUrl)"/>
                             </div>
                             <div class="team-pokemon-info-basic-type-icons">
                                 <img v-for="type in pokedex[processStr(pm.name)].types"
@@ -22,7 +22,7 @@
                     </div>
                     <div class="team-pokemon-moves">
                         <div class="team-pokemon-move" v-for="m in pm.moves">
-                            <img :alt="m" :src="iconPath(m, movetypeIconBaseUrl)" />
+                            <img :alt="m" :src="iconPath(m, movetypeIconBaseUrl)"/>
                             <div class="move-name">{{m}}</div>
                         </div>
                     </div>
@@ -48,10 +48,10 @@
                 pokedex: {},
                 movedex: {},
                 pokemon: this.pokemonlist,
-                pmIconBaseUrl: 'http://127.0.0.1:8888/assets/pokemon-icons/2d/',
-                itemIconBaseUrl: 'http://127.0.0.1:8888/assets/pokemon-icons/items/',
-                typeIconBaseUrl: 'http://127.0.0.1:8888/assets/pokemon-icons/types/',
-                movetypeIconBaseUrl: 'http://127.0.0.1:8888/assets/pokemon-icons/movetypes/',
+                pmIconBaseUrl: process.env.VUE_APP_ICONS + '2d/',
+                itemIconBaseUrl: process.env.VUE_APP_ICONS + 'items/',
+                typeIconBaseUrl: process.env.VUE_APP_ICONS + 'types/',
+                movetypeIconBaseUrl: process.env.VUE_APP_ICONS + 'movetypes/',
                 ext: '.png',
             }
         },

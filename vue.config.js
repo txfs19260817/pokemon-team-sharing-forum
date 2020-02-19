@@ -5,6 +5,7 @@ module.exports = {
                 .entry('app')
                 .clear()
                 .add('./src/main-prod.js');
+            config.devServer.disableHostCheck(true);
 
             config.plugin('html').tap(args => {
                 args[0].isProd = true;
@@ -26,6 +27,7 @@ module.exports = {
                 .entry('app')
                 .clear()
                 .add('./src/main.js');
+            config.devServer.disableHostCheck(true);
 
             config.plugin('html').tap(args => {
                 args[0].isProd = false;

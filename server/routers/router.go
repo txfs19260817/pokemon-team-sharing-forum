@@ -13,6 +13,9 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(middleware.Cors()) // Cross-Origin Resource Sharing
 	r.Use(gin.Recovery())
+	//if setting.RunMode == "release" {
+	//	r.Use(middleware.TlsHandler())
+	//}
 
 	r.Static("/assets", "./assets")
 
