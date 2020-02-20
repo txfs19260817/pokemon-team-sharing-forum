@@ -56,6 +56,22 @@ func GetTeamById(c *gin.Context) {
 	})
 }
 
+func GetTeamByFormat(c *gin.Context)  {
+	data := make(map[string]interface{})
+	format := c.Param("format")
+
+	code := e.SUCCESS
+
+	data["lists"] = models.GetTeamByFormat(format)
+	data["total"] = models.GetTeamTotalByFormat(format)
+
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
+}
+
 // 新增队伍
 func AddTeam(c *gin.Context) {
 	var team models.Team

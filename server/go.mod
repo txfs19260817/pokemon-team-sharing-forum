@@ -8,6 +8,6 @@ require (
 	github.com/go-ini/ini v1.52.0
 	github.com/jinzhu/gorm v1.9.12
 	github.com/unknwon/com v1.0.1
-	github.com/unrolled/secure v1.0.7 // indirect
+	github.com/unrolled/secure v1.0.7
 	gopkg.in/ini.v1 v1.52.0 // indirect
 )

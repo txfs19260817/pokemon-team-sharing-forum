@@ -79,23 +79,7 @@
                 </el-form-item>
                 <el-form-item label="队伍租借ID截图(可选，支持格式：png, jpg, jpeg)" :label-width="formLabelWidth"
                               prop="rentalImgUrl">
-                    <el-upload
-                            :action=uploadUrl
-                            name="upload"
-                            list-type="picture-card"
-                            accept="image/jpeg,image/jpg,image/png"
-                            :limit=1
-                            :drag="true"
-                            :before-upload="handleBeforeUpload"
-                            :on-exceed="handleExceed"
-                            :on-remove="handleRemove"
-                            :on-success="handleSuccess"
-                            :on-preview="handlePictureCardPreview">
-                        <i class="el-icon-plus"></i>
-                    </el-upload>
-                    <el-dialog :visible.sync="dialogVisible" append-to-body>
-                        <img width="100%" :src="dialogImageUrl" alt="Team Preview">
-                    </el-dialog>
+                    <upload :imgurl.sync="form.rentalImgUrl"></upload>
                 </el-form-item>
                 <el-form-item label="Showdown队伍文本(可选)" :label-width="formLabelWidth" prop="showdown">
                     <el-input
@@ -120,6 +104,7 @@
             <div slot="footer" class="dialog-footer">
                 <el-button @click="closeForm">取 消</el-button>
                 <el-button type="primary" @click="submitDialogVisible = true">确 定</el-button>
+<!--                Confirm dialog-->
                 <el-dialog title="确认提交" :visible.sync="submitDialogVisible" width="56%" append-to-body :modal="false">
                     <el-alert
                             title="是否确认提交？"
@@ -147,6 +132,7 @@
     import {Formats} from "../assets/data/formats";
     import {Koffing} from 'koffing';
     import showdown2img from "./Showdown2Img"
+    import upload from "./Upload";
     import html2canvas from 'html2canvas';
 
     const PokemonNames = require('../assets/data/pokemonNames.js');
@@ -157,10 +143,6 @@
             dialogformvisible: {
                 type: Boolean,
                 default: false
-            },
-            url: {
-                type: String,
-                required: true
             },
         },
         data() {
@@ -208,17 +190,15 @@
                         {min: 0, max: 200, message: '长度在 200 个字符以内', trigger: 'blur'}
                     ]
                 },
-                // Upload image dialog properties
-                dialogImageUrl: '',
-                dialogVisible: false,
                 // submit dialog
                 submitDialogVisible: false,
-                // generated image
+                // generated team preview image: return code
                 b64code: 10086
             }
         },
         created() {
             this.formats = Formats;
+            // pokemon names would show in el-select
             this.pokemonNames = [
                 PokemonNames.all('en'),
                 PokemonNames.all('ja'),
@@ -294,47 +274,14 @@
                 this.dialogformvisible = false;
                 this.$emit("update:dialogformvisible", this.dialogformvisible);
             },
-            // methods for image-upload dialog
-            handleBeforeUpload(file) {
-                let test = /^image\/(jpeg|png|jpg)$/.test(file.type);
-                const isLt2M = file.size / 1024 / 1024 < 2;
-                if (!test) {
-                    this.$message.error('上传图片格式有误，支持格式：png, jpg, jpeg');
-                    return false
-                }
-                if (!isLt2M) {
-                    this.$message.error('上传图片大小不能超过 2MB');
-                    return false
-                }
-                return test && isLt2M
-            },
-            handleExceed(files, fileList) {
-                this.$message.warning(`请删除后重新添加图片`);
-            },
-            handleRemove(file, fileList) {
-                this.form.rentalImgUrl = ''
-            },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url;
-                this.dialogVisible = true;
-            },
-            handleSuccess(response, file, fileList) {
-                if (response.code !== 200) {
-                    this.$message.error('上传失败：' + response.data);
-                    return
-                }
-                this.form.rentalImgUrl = response.data;
-            }
         },
         computed: {
-            uploadUrl() {
-                return this.url + "upload"
-            },
             parsedShowdown() {
                 return Koffing.parse(this.form.showdown).teams[0].pokemon;
             }
         },
         components: {
+            upload,
             showdown2img
         }
     }

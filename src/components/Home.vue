@@ -6,7 +6,7 @@
                 <router-link to='/home'><img id="logo" src="../../public/logo.png" alt="Pokemon Team Sharing Forum"/>
                 </router-link>
                 <a id="submit" href="#" @click="updateFormVisible">Share</a>
-                <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible" :url="url"></teamform>
+                <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible"></teamform>
             </header>
         </el-header>
         <el-container>
@@ -128,6 +128,7 @@
             },
             // request data
             getTeams(page) {
+                console.log(this.$http)
                 this.$http.get('teams', {
                     params: {
                         state: 1,

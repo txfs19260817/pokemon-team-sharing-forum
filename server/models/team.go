@@ -50,7 +50,6 @@ func (team *Team) TeamValidator(err map[string]string) bool {
 	if e != nil {
 		log.Println("Format 验证错误：", e)
 	}
-	log.Println(team.Pokemon1)
 	valid.MinSize(team.Pokemon1, 2, "Pokemon1").Message("请选择至少一只宝可梦")
 	// TODO: 验证6只pm名字合法性
 	// TODO: 验证showdown语法合法性
@@ -83,6 +82,19 @@ func GetTeamTotal(maps interface{}) (count int) {
 // 根据id获取队伍
 func GetTeamById(id int) (team Team) {
 	db.Where(&Team{ID:id}).First(&team)
+
+	return
+}
+
+// 根据模式获取队伍
+func GetTeamByFormat(format string) (teams []Team) {
+	db.Where(&Team{Format:format}).Find(&teams)
+
+	return
+}
+// 根据模式获取队伍数目
+func GetTeamTotalByFormat(format string) (count int) {
+	db.Model(&Team{}).Where("format = ?", format).Count(&count)
 
 	return
 }
