@@ -67,7 +67,7 @@ func (team *Team) TeamValidator(err map[string]string) bool {
 // 查询
 // 获取队伍列表
 func GetTeams(pageNum int, pageSize int, maps interface{}) (teams []Team) {
-	db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&teams)
+	db.Where(maps).Offset(pageNum).Limit(pageSize).Order("created_at desc").Find(&teams)
 
 	return
 }
@@ -81,23 +81,24 @@ func GetTeamTotal(maps interface{}) (count int) {
 
 // 根据id获取队伍
 func GetTeamById(id int) (team Team) {
-	db.Where(&Team{ID:id}).First(&team)
+	db.Where(&Team{ID: id}).First(&team)
 
 	return
 }
 
 // 根据模式获取队伍
-func GetTeamByFormat(format string) (teams []Team) {
-	db.Where(&Team{Format:format}).Find(&teams)
+//func GetTeamByFormat(pageNum int, pageSize int, format string) (teams []Team) {
+//	db.Where(&Team{Format: format}).Offset(pageNum).Limit(pageSize).Order("created_at desc").Find(&teams)
+//
+//	return
+//}
 
-	return
-}
 // 根据模式获取队伍数目
-func GetTeamTotalByFormat(format string) (count int) {
-	db.Model(&Team{}).Where("format = ?", format).Count(&count)
-
-	return
-}
+//func GetTeamTotalByFormat(format string) (count int) {
+//	db.Model(&Team{}).Where("format = ?", format).Count(&count)
+//
+//	return
+//}
 
 // 增加
 func AddTeam(team *Team) error {
@@ -105,6 +106,7 @@ func AddTeam(team *Team) error {
 
 	return dbc.Error
 }
+
 // 创建队伍时设置时间的Callback
 func (team *Team) BeforeCreate(scope *gorm.Scope) error {
 	return scope.SetColumn("CreatedAt", time.Now())

@@ -16,11 +16,11 @@ func GetTeams(c *gin.Context) {
 	maps := make(map[string]interface{})
 	data := make(map[string]interface{})
 
-	var state int = -1
+	var state = -1
 	if arg := c.Query("state"); arg != "" {
 		state = com.StrTo(arg).MustInt()
-		maps["state"] = state
 	}
+	maps["state"] = state
 
 	code := e.SUCCESS
 
@@ -56,14 +56,22 @@ func GetTeamById(c *gin.Context) {
 	})
 }
 
-func GetTeamByFormat(c *gin.Context)  {
+func GetTeamByFormat(c *gin.Context) {
+	maps := make(map[string]interface{})
 	data := make(map[string]interface{})
-	format := c.Param("format")
+
+	maps["format"] = c.Param("format")
+
+	var state = -1
+	if arg := c.Query("state"); arg != "" {
+		state = com.StrTo(arg).MustInt()
+	}
+	maps["state"] = state
 
 	code := e.SUCCESS
 
-	data["lists"] = models.GetTeamByFormat(format)
-	data["total"] = models.GetTeamTotalByFormat(format)
+	data["lists"] = models.GetTeams(util.GetPage(c), setting.PageSize, maps)
+	data["total"] = models.GetTeamTotal(maps)
 
 	c.JSON(code, gin.H{
 		"code": code,

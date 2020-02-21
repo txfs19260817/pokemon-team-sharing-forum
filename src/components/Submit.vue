@@ -248,7 +248,11 @@
                 }
 
                 await this.$refs.teamFormRef.validate(async valid => {
-                    if (!valid) return;
+                    if (!valid) {
+                        this.$message.error('提交内容有误，请修改')
+                        return;
+                    }
+                    this.$message.warning('提交中，请耐心等待不要重复提交');
 
                     // process this form
                     function processPokemon(pname) {

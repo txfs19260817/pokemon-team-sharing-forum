@@ -90,7 +90,7 @@
 
     .team-outer {
         margin: 0;
-        background: url(../assets/background.jpg) no-repeat center;
+        background: url(../../public/background.jpg) no-repeat center;
         background-size: 100%;
         width: 1024px;
         height: 576px;

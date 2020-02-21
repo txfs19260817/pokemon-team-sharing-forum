@@ -1,10 +1,8 @@
 <template>
     <base-layout :loading.sync="loading" :fail.sync="fail">
-        <template v-slot:header>
-            <a id="submit" href="#" @click="updateFormVisible">Share</a>
-            <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible"></teamform>
-        </template>
+        <template v-slot:header></template>
         <template v-slot:default>
+            <h3>{{format}}</h3>
             <div class="responsive" v-for="(item, index) in teams">
                 <div class="gallery">
                     <!-- team preview -->
@@ -13,7 +11,7 @@
                     <el-dialog
                             title="Showdown"
                             :modal-append-to-body="false"
-                            :visible.sync="dialogshowdowntextvisible"
+                            :visible.sync="dialogshowdownvisible"
                             width="30%">
                         <el-input
                                 id="showdowntext"
@@ -23,7 +21,7 @@
                         </el-input>
                         <span slot="footer" class="dialog-footer">
                                 <el-button @click="copyButton">Copy to clipboard</el-button>
-                                <el-button type="primary" @click="dialogshowdowntextvisible = false">确 定</el-button>
+                                <el-button type="primary" @click="dialogshowdownvisible = false">确 定</el-button>
                             </span>
                     </el-dialog>
                     <!-- caption below the image -->
@@ -52,17 +50,8 @@
             <photoswipe ref="photoswipe" :items="teams"></photoswipe>
         </template>
         <template v-slot:footer>
-            <!-- left: button to open the drawer -->
-            <img id="about" src="../../public/about.png" width="62" height="62" @click.stop="drawervisible = true"
-                 alt="about"/>
-            <el-drawer
-                    title="About"
-                    :size="'60%'"
-                    :destroy-on-close="true"
-                    :visible.sync="drawervisible"
-                    :direction="'ltr'">
-                <div class="about" v-html="$t('about')"></div>
-            </el-drawer>
+            <!-- left: dummy element -->
+            <div style="height: 62px;width: 62px;"></div>
             <!-- middle: paginator  -->
             <el-pagination
                     background
@@ -86,19 +75,18 @@
 </template>
 
 <script>
-    import teamform from './Submit'
     import photoswipe from "./Photoswipe";
     import BaseLayout from "./BaseLayout";
 
     export default {
-        name: 'home',
+        name: 'Format',
         components: {
-            teamform,
             photoswipe,
             BaseLayout
         },
         data() {
             return {
+                format:'',
                 url: process.env.VUE_APP_URL,
                 // base
                 loading: false,
@@ -106,10 +94,8 @@
                 // lang
                 languages: ['zh-hans', 'en', 'ja'],
                 curLang: 'zh-hans',
-                // dialog and drawer visible
-                dialogformvisible: false,
+                // showdown text dialog visible
                 dialogshowdowntextvisible: false,
-                drawervisible: false,
                 // page
                 total: 1,
                 pageSize: 8,
@@ -120,15 +106,10 @@
             }
         },
         methods: {
-            // submit form dialog
-            updateFormVisible() {
-                this.dialogformvisible = true;
-                setTimeout(this.$refs.formRef.resetForm, 100);
-            },
             // request data
-            getTeams(page) {
+            getTeamsByFormat(format, page) {
                 this.loading = true;
-                this.$http.get('teams', {
+                this.$http.get('formats/' + format, {
                     params: {
                         state: 1,
                         page: page
@@ -183,7 +164,7 @@
             },
             // pagination handlers
             handleCurrentChange(v) {
-                this.getTeams(v);
+                this.getTeamsByFormat(this.format, v);
                 this.curPage = v
             },
             // click img to view details
@@ -213,90 +194,14 @@
             }
         },
         created() {
-            this.getTeams(1);
+            this.format = this.$route.params.format;
+            this.getTeamsByFormat(this.format, 1);
             this.curLang = localStorage.getItem('lang') || 'zh-hans'
         },
     }
 </script>
 
 <style scoped>
-    @import url("https://fonts.lug.ustc.edu.cn/css?family=Montserrat");
-    /* black: #212221 blue: #1181b2 lightblue:#ddedf4 purple:#44449b white:ECF5FF*/
-    /*Share button*/
-    #submit {
-        position: absolute;
-        right: 5%;
-        top: 10%;
-        -webkit-transform: translate(-@left, -@top);
-        transform: translate(-@left, -@top);
-        color: #c83c3c;
-        text-decoration: none;
-        font-size: 2em;
-        display: inline-block;
-        font-family: Montserrat, sans-serif;
-        text-transform: uppercase;
-        padding: 0.5em 2em;
-        border: 2px solid #c83c3c;
-        -webkit-transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
-        transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
-    }
-
-    #submit::before {
-        content: "";
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 100%;
-        bottom: 0;
-        background: #c83c3c;
-        -webkit-transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
-        transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
-        z-index: -1;
-    }
-
-    #submit::after {
-        content: "";
-        display: inline-block;
-        background-image: url(../../public/arrow.png);
-        position: absolute;
-        top: 0;
-        left: calc(100% - 3em);
-        right: 3em;
-        bottom: 0;
-        background-size: 1.5em;
-        background-repeat: no-repeat;
-        background-position: center;
-        -webkit-transition: right 0.3s cubic-bezier(0.1, 0, 0.1, 1);
-        transition: right 0.3s cubic-bezier(0.1, 0, 0.1, 1);
-    }
-
-    #submit:hover {
-        padding: 0.5em 3.5em 0.5em 0.5em;
-    }
-
-    #submit:hover::before {
-        left: calc(100% - 3em);
-        right: 0;
-        -webkit-transition: 0.3s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
-        transition: 0.3s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
-    }
-
-    #submit:hover::after {
-        right: 0;
-        -webkit-transition: right 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
-        transition: right 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
-    }
-    /*About Page*/
-    div.about {
-        height: 600px;
-        overflow: auto;
-        margin: 0px 40px;
-        font-size: 16px;
-        line-height: 20px;
-        padding: 0;
-    }
-
     /*teams preview https://www.w3schools.com/css/css_image_gallery.asp */
     div {
         box-sizing: border-box;
