@@ -1,12 +1,12 @@
 <template>
     <div id="teamform">
         <el-dialog title="队伍表格" :visible.sync="dialogformvisible" :before-close="closeForm" width="70%"
-                   :modal-append-to-body="false">
+                   :modal-append-to-body="false" append-to-body>
             <el-form :model="form" ref="teamFormRef" :rules="loginFormRules">
                 <el-form-item label="标题" :label-width="formLabelWidth" prop="title">
                     <el-input v-model="form.title" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="作者" :label-width="formLabelWidth" prop="author">
+                <el-form-item :label="$t('author')" :label-width="formLabelWidth" prop="author">
                     <el-input v-model="form.author" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="模式" :label-width="formLabelWidth" prop="format">

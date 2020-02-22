@@ -23,7 +23,7 @@
             <div class="info clearfix">
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item :to="'/formats/'+item.format">[{{item.format}}]</el-breadcrumb-item>
-                    <el-breadcrumb-item>作者：{{item.author}}</el-breadcrumb-item>
+                    <el-breadcrumb-item>{{$t('author')}}: {{item.author}}</el-breadcrumb-item>
                     <el-breadcrumb-item>
                         <time>{{DateConversion(item.created_at)}}</time>
                     </el-breadcrumb-item>

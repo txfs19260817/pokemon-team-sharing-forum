@@ -14,7 +14,7 @@
                     <h2>Loading...</h2>
                 </div>
                 <div v-if="fail" class="loading">
-                    <h2>You have took a Sitrus Berry away from Pikachu.</h2>
+                    <h2>Pikachu's Sitrus Berry has been took away :'(</h2>
                 </div>
                 <slot></slot>
             </el-main>

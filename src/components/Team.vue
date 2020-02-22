@@ -14,7 +14,7 @@
                                 <td><img :src="team.rentalImgUrl" alt="team.title" width="768" height="432"/></td>
                             </tr>
                             <tr>
-                                <td>作者</td>
+                                <td>{{$t('author')}}</td>
                                 <td>{{team.author}}</td>
                             </tr>
                             <tr>
