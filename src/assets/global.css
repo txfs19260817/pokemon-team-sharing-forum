@@ -75,3 +75,13 @@ header::before {
     background-size: cover;
     border-bottom: .2em solid #fff;
 }
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both
+}

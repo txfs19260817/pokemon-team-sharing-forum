@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import {
+    Breadcrumb,
+    BreadcrumbItem,
+    Card,
+    Row,
+    Col,
     Tag,
     Tabs,
     TabPane,
@@ -22,6 +27,11 @@ import {
     Message
 } from 'element-ui'
 
+Vue.use(Breadcrumb);
+Vue.use(BreadcrumbItem);
+Vue.use(Card);
+Vue.use(Row);
+Vue.use(Col);
 Vue.use(Tag);
 Vue.use(Tabs);
 Vue.use(TabPane);

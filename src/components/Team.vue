@@ -18,6 +18,10 @@
                                 <td>{{team.author}}</td>
                             </tr>
                             <tr>
+                                <td>上传时间</td>
+                                <td>{{DateConversion(team.created_at)}}</td>
+                            </tr>
+                            <tr>
                                 <td>对战模式</td>
                                 <td>
                                     <router-link :to="'/formats/'+team.format">
@@ -61,6 +65,7 @@
 
 <script>
     import BaseLayout from "./BaseLayout";
+    import {DateConversion} from "../assets/utils";
 
     export default {
         name: "Team",
@@ -69,6 +74,7 @@
                 loading: false,
                 fail: false,
                 team: null,
+                DateConversion:DateConversion
             }
         },
         components: {
