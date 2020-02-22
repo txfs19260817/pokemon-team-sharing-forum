@@ -53,7 +53,7 @@ func (team *Team) TeamValidator(err map[string]string) bool {
 	valid.MinSize(team.Pokemon1, 2, "Pokemon1").Message("请选择至少一只宝可梦")
 	// TODO: 验证6只pm名字合法性
 	// TODO: 验证showdown语法合法性
-	valid.MaxSize(team.Description, 300, "Description").Message("简介最长为300字符，过长建议附外部链接")
+	valid.MaxSize(team.Description, 500, "Description").Message("简介最长为500字符，过长建议附外部链接")
 	valid.Range(team.State, 0, 1, "State").Message("状态只允许0或1")
 	if valid.HasErrors() {
 		for _, e := range valid.Errors {
@@ -86,19 +86,33 @@ func GetTeamById(id int) (team Team) {
 	return
 }
 
-// 根据模式获取队伍
-//func GetTeamByFormat(pageNum int, pageSize int, format string) (teams []Team) {
-//	db.Where(&Team{Format: format}).Offset(pageNum).Limit(pageSize).Order("created_at desc").Find(&teams)
-//
-//	return
-//}
+// 根据宝可梦获取队伍列表
+func GetTeamsByPokemon(pageNum int, pageSize int, maps interface{}, pokemon string) (teams []Team) {
+	db.Where(maps). // state
+		Where(map[string]interface{}{"pokemon1": pokemon}).
+		Or(map[string]interface{}{"pokemon2": pokemon}).
+		Or(map[string]interface{}{"pokemon3": pokemon}).
+		Or(map[string]interface{}{"pokemon4": pokemon}).
+		Or(map[string]interface{}{"pokemon5": pokemon}).
+		Or(map[string]interface{}{"pokemon6": pokemon}).
+		Offset(pageNum).Limit(pageSize).Order("created_at desc").Find(&teams)
 
-// 根据模式获取队伍数目
-//func GetTeamTotalByFormat(format string) (count int) {
-//	db.Model(&Team{}).Where("format = ?", format).Count(&count)
-//
-//	return
-//}
+	return
+}
+
+// 根据宝可梦获取队伍数目
+func GetTeamTotalByPokemon(maps interface{}, pokemon string) (count int) {
+	db.Model(&Team{}).Where(maps).
+		Where(map[string]interface{}{"pokemon1": pokemon}).
+		Or(map[string]interface{}{"pokemon2": pokemon}).
+		Or(map[string]interface{}{"pokemon3": pokemon}).
+		Or(map[string]interface{}{"pokemon4": pokemon}).
+		Or(map[string]interface{}{"pokemon5": pokemon}).
+		Or(map[string]interface{}{"pokemon6": pokemon}).
+		Count(&count)
+
+	return
+}
 
 // 增加
 func AddTeam(team *Team) error {

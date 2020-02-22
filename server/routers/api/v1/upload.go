@@ -5,18 +5,21 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
-	"os"
 	"server/models"
 	"server/pkg/e"
 	"server/pkg/setting"
 	"server/pkg/upload"
 )
 
-func RootPath() string {
-	path, _ := os.Getwd()
-	return path
-}
 
+// @Summary Upload an image 上传图片
+// @Accept mpfd
+// @Produce json
+// @Param url formData string true "Url"
+// @Success 200 {object} string "{"code":200,"data":{},"msg":"ok"}"
+// @Failure 400 {object} string "{"code":400,"data":{},"msg":"请求参数错误"}"
+// @Failure 500 {object} string "{"code":500,"data":{},"msg":"fail"}"
+// @Router /api/v1/upload [post]
 func UploadImage(c *gin.Context) {
 	code := e.SUCCESS
 	data := ""
@@ -64,7 +67,14 @@ func UploadImage(c *gin.Context) {
 	}
 }
 
-// Upload Base64 Image
+// @Summary Upload a base64 image 上传base64图片
+// @Accept json
+// @Produce json
+// @Param base64 body string true "Base64"
+// @Success 200 {object} string "{"code":200,"data":{},"msg":"ok"}"
+// @Failure 400 {object} string "{"code":400,"data":{},"msg":"请求参数错误"}"
+// @Failure 500 {object} string "{"code":500,"data":{},"msg":"fail"}"
+// @Router /api/v1/uploadb64 [post]
 func UploadBase64Image(c *gin.Context) {
 	code := e.SUCCESS
 	data := ""

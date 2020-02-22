@@ -5,6 +5,30 @@
             <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible"></teamform>
         </template>
         <template v-slot:default>
+            <!-- Search -->
+            <div class="search">
+                <el-breadcrumb separator="or">
+                    <h2>Search by</h2>
+                    <el-breadcrumb-item>
+                        <el-cascader
+                                v-model="selectedFormat"
+                                :options="formats"
+                                :placeholder="$t('form.format')"
+                                :show-all-levels="false"
+                                @change="searchFormat">
+                        </el-cascader>
+                    </el-breadcrumb-item>
+                    <el-breadcrumb-item>
+                        <el-select v-model="selectedPokemon" filterable :placeholder="$t('pokemon')"
+                                   @change="searchPokemon">
+                            <el-option v-for="item in pokemonNames" :key="item" :label="item" :value="item">
+                            </el-option>
+                        </el-select>
+                    </el-breadcrumb-item>
+                </el-breadcrumb>
+            </div>
+
+            <!-- Display results -->
             <el-row>
                 <el-col class="responsive" :span="6" v-for="(item, index) in teams" :key="index" :offset="0">
                     <card :item="item"><img :src="item.src" @click="lightbox(index)" :alt="item.alt"></card>
@@ -36,11 +60,7 @@
             </el-pagination>
             <!-- right: language selector  -->
             <el-select id="lang" size="mini" style="width: 100px;" v-model="curLang" @change="switchLang">
-                <el-option
-                        v-for="item in languages"
-                        :key="item"
-                        :value="item">
-                </el-option>
+                <el-option v-for="item in languages" :key="item" :value="item"></el-option>
             </el-select>
         </template>
     </base-layout>
@@ -51,6 +71,9 @@
     import photoswipe from "./Photoswipe";
     import BaseLayout from "./BaseLayout";
     import Card from "./Card";
+    import {Formats} from "../assets/data/formats";
+
+    const PokemonNames = require('../assets/data/pokemonNames.js');
 
     export default {
         name: 'home',
@@ -63,7 +86,7 @@
         data() {
             return {
                 url: process.env.VUE_APP_URL,
-                // base
+                // for base-layout
                 loading: false,
                 fail: false,
                 // lang
@@ -77,9 +100,14 @@
                 total: 1,
                 pageSize: 8,
                 curPage: 1,
-                // data
+                // temp data
                 teams: [],
-                showdownText: ''
+                showdownText: '',
+                // search panel
+                formats: [],
+                pokemonNames: [],
+                selectedPokemon: null,
+                selectedFormat: null,
             }
         },
         methods: {
@@ -154,10 +182,21 @@
                 this.$i18n.locale = lang;
                 // save lang in localStorage
                 localStorage.setItem('lang', lang);
-            }
+            },
+            // search panel
+            searchFormat(f) {
+                f = f[1];
+                this.$router.push('formats/' + f)
+            },
+            searchPokemon(p) {
+                p = p.split('/', 1)[0];
+                this.$router.push('pokemon/' + p)
+            },
         },
         created() {
             this.getTeams(1);
+            this.formats = Formats;
+            this.pokemonNames = PokemonNames.pmNames4Select;
             this.curLang = localStorage.getItem('lang') || 'zh-hans'
         },
     }

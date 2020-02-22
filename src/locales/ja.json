@@ -1,6 +1,18 @@
 {
+  "pokemon": "ポケモン",
   "message": {
     "hello": "こんにちは"
   },
-  "author": "投稿者"
+  "form": {
+    "form": "チームフォーム",
+    "title": "タイトル",
+    "author": "投稿者",
+    "format": "ルール",
+    "pokemon1": "1番目のポケモン",
+    "pokemon2": "2番目のポケモン",
+    "pokemon3": "3番目のポケモン",
+    "pokemon4": "4番目のポケモン",
+    "pokemon5": "5番目のポケモン",
+    "pokemon6": "6番目のポケモン"
+  }
 }

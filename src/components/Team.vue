@@ -14,7 +14,7 @@
                                 <td><img :src="team.rentalImgUrl" alt="team.title" width="768" height="432"/></td>
                             </tr>
                             <tr>
-                                <td>{{$t('author')}}</td>
+                                <td>{{$t('form.author')}}</td>
                                 <td>{{team.author}}</td>
                             </tr>
                             <tr>
@@ -32,12 +32,26 @@
                             <tr>
                                 <td>宝可梦</td>
                                 <td>
-                                    <el-tag type="" v-if="team.pokemon1">{{team.pokemon1}}</el-tag>
-                                    <el-tag type="success" v-if="team.pokemon2">{{team.pokemon2}}</el-tag>
-                                    <el-tag type="info" v-if="team.pokemon3">{{team.pokemon3}}</el-tag>
-                                    <el-tag type="warning" v-if="team.pokemon4">{{team.pokemon4}}</el-tag>
-                                    <el-tag type="danger" v-if="team.pokemon5">{{team.pokemon5}}</el-tag>
-                                    <el-tag type="" v-if="team.pokemon6">{{team.pokemon6}}</el-tag>
+                                    <el-breadcrumb separator="/">
+                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon1">
+                                            <el-tag type="" v-if="team.pokemon1">{{team.pokemon1}}</el-tag>
+                                        </el-breadcrumb-item>
+                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon2">
+                                            <el-tag type="success" v-if="team.pokemon2">{{team.pokemon2}}</el-tag>
+                                        </el-breadcrumb-item>
+                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon3">
+                                            <el-tag type="info" v-if="team.pokemon3">{{team.pokemon3}}</el-tag>
+                                        </el-breadcrumb-item>
+                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon4">
+                                            <el-tag type="warning" v-if="team.pokemon4">{{team.pokemon4}}</el-tag>
+                                        </el-breadcrumb-item>
+                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon5">
+                                            <el-tag type="danger" v-if="team.pokemon5">{{team.pokemon5}}</el-tag>
+                                        </el-breadcrumb-item>
+                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon6">
+                                            <el-tag type="" v-if="team.pokemon6">{{team.pokemon6}}</el-tag>
+                                        </el-breadcrumb-item>
+                                    </el-breadcrumb>
                                 </td>
                             </tr>
                             <tr>
@@ -74,7 +88,7 @@
                 loading: false,
                 fail: false,
                 team: null,
-                DateConversion:DateConversion
+                DateConversion: DateConversion
             }
         },
         components: {

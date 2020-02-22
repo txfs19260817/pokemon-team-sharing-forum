@@ -52,3 +52,14 @@ exports.getId = (name, language = 'en') => {
 };
 
 exports.languages = languages;
+
+// pokemon names would show in el-select
+exports.pmNames4Select = [
+    getLocalizedList('en'),
+    getLocalizedList('zh-Hans'),
+    getLocalizedList('zh-Hant'),
+    getLocalizedList('ja'),
+    getLocalizedList('ko')
+].reduce((r, a) =>
+    a.map((v, i) => (r[i] || []).concat(v)), []
+).map(e => e.join('/'));

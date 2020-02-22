@@ -1,6 +1,30 @@
 {
+  "pokemon": "Pokémon",
   "message": {
     "hello": "hello"
   },
-  "author": "Author"
+  "form": {
+    "form": "Team Sheet",
+    "title": "Title",
+    "author": "Author",
+    "format": "Format",
+    "pokemon1": "First Pokémon",
+    "pokemon2": "Second Pokémon",
+    "pokemon3": "Third Pokémon",
+    "pokemon4": "Fourth Pokémon",
+    "pokemon5": "Fifth Pokémon",
+    "pokemon6": "Sixth Pokémon",
+    "rental": "Rental team screenshot",
+    "showdown": "Pokémon Showdown importable",
+    "description": "Description",
+
+    "placeholder": {
+      "optional": "Optional",
+      "format": "Please enter the suitable format here",
+      "pokemon": "Please enter the Pokémon name here",
+      "uploadFormat": "Supported image formats: png, jpg, jpeg",
+      "showdown": "Please paste the Showdown importable here",
+      "description":"Please limit the description up to 300 words. You can also paste a reference link or contact information."
+    }
+  }
 }

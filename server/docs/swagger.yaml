@@ -1,0 +1,243 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/v1/formats/{format}:
+    get:
+      parameters:
+      - description: Format
+        in: path
+        name: format
+        required: true
+        type: string
+      - description: State
+        in: query
+        name: state
+        type: integer
+      - description: State
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            $ref: '#/definitions/string'
+      summary: Get multiple teams by format 根据模式获取多个队伍
+  /api/v1/pokemon/{pokemon}:
+    get:
+      parameters:
+      - description: Pokemon
+        in: path
+        name: pokemon
+        required: true
+        type: string
+      - description: State
+        in: query
+        name: state
+        type: integer
+      - description: State
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            $ref: '#/definitions/string'
+      summary: Get multiple teams by format 根据模式获取多个队伍
+  /api/v1/teams:
+    get:
+      parameters:
+      - description: State
+        in: query
+        name: state
+        type: integer
+      - description: State
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            $ref: '#/definitions/string'
+      summary: Get multiple teams 获取多个队伍
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Title
+        in: body
+        name: title
+        required: true
+        schema:
+          type: string
+      - description: Author
+        in: body
+        name: author
+        required: true
+        schema:
+          type: string
+      - description: Format
+        in: body
+        name: format
+        required: true
+        schema:
+          type: string
+      - description: Pokemon1
+        in: body
+        name: pokemon1
+        required: true
+        schema:
+          type: string
+      - description: Pokemon2
+        in: body
+        name: pokemon2
+        schema:
+          type: string
+      - description: Pokemon3
+        in: body
+        name: pokemon3
+        schema:
+          type: string
+      - description: Pokemon4
+        in: body
+        name: pokemon4
+        schema:
+          type: string
+      - description: Pokemon5
+        in: body
+        name: pokemon5
+        schema:
+          type: string
+      - description: Pokemon6
+        in: body
+        name: pokemon6
+        schema:
+          type: string
+      - description: RentalImgUrl
+        in: body
+        name: rental_img_url
+        schema:
+          type: string
+      - description: Showdown
+        in: body
+        name: showdown
+        schema:
+          type: string
+      - description: Description
+        in: body
+        name: description
+        schema:
+          type: string
+      - description: State
+        in: body
+        name: state
+        schema:
+          type: integer
+      - description: CreatedBy
+        in: body
+        name: created_by
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            $ref: '#/definitions/string'
+        "400":
+          description: '{"code":400,"data":{},"msg":"请求参数错误"}'
+          schema:
+            $ref: '#/definitions/string'
+        "500":
+          description: '{"code":500,"data":{},"msg":"fail"}'
+          schema:
+            $ref: '#/definitions/string'
+      summary: Add a team 新增队伍
+  /api/v1/teams/{id}:
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: State
+        in: query
+        name: state
+        type: integer
+      - description: State
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            $ref: '#/definitions/string'
+      summary: Get a team by id 根据id获取1个队伍
+  /api/v1/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Url
+        in: formData
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            $ref: '#/definitions/string'
+        "400":
+          description: '{"code":400,"data":{},"msg":"请求参数错误"}'
+          schema:
+            $ref: '#/definitions/string'
+        "500":
+          description: '{"code":500,"data":{},"msg":"fail"}'
+          schema:
+            $ref: '#/definitions/string'
+      summary: Upload an image 上传图片
+  /api/v1/uploadb64:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Base64
+        in: body
+        name: base64
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            $ref: '#/definitions/string'
+        "400":
+          description: '{"code":400,"data":{},"msg":"请求参数错误"}'
+          schema:
+            $ref: '#/definitions/string'
+        "500":
+          description: '{"code":500,"data":{},"msg":"fail"}'
+          schema:
+            $ref: '#/definitions/string'
+      summary: Upload a base64 image 上传base64图片
+swagger: "2.0"

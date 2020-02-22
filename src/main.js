@@ -4,7 +4,6 @@ import router from './router'
 import './plugins/element.js'
 // Global style
 import './assets/global.css'
-import {DateConversion} from "./assets/utils";
 
 import axios from 'axios'
 import i18n from './i18n'

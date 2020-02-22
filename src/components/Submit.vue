@@ -1,24 +1,24 @@
 <template>
     <div id="teamform">
-        <el-dialog title="队伍表格" :visible.sync="dialogformvisible" :before-close="closeForm" width="70%"
+        <el-dialog :title="$t('form.form')" :visible.sync="dialogformvisible" :before-close="closeForm" width="70%"
                    :modal-append-to-body="false" append-to-body>
-            <el-form :model="form" ref="teamFormRef" :rules="loginFormRules">
-                <el-form-item label="标题" :label-width="formLabelWidth" prop="title">
+            <el-form :model="form" ref="form" :rules="loginFormRules">
+                <el-form-item :label="$t('form.title')" :label-width="formLabelWidth" prop="title">
                     <el-input v-model="form.title" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('author')" :label-width="formLabelWidth" prop="author">
+                <el-form-item :label="$t('form.author')" :label-width="formLabelWidth" prop="author">
                     <el-input v-model="form.author" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="模式" :label-width="formLabelWidth" prop="format">
+                <el-form-item :label="$t('form.format')" :label-width="formLabelWidth" prop="format">
                     <el-cascader
                             v-model="form.format"
                             :options="formats"
-                            placeholder="请选择队伍适合的对战模式"
+                            :placeholder="$t('form.placeholder.format')"
                             :show-all-levels="false">
                     </el-cascader>
                 </el-form-item>
-                <el-form-item label="第1只宝可梦" :label-width="formLabelWidth" prop="pokemon1">
-                    <el-select v-model="form.pokemon1" filterable placeholder="可在此输入宝可梦名称">
+                <el-form-item :label="$t('form.pokemon1')" :label-width="formLabelWidth" prop="pokemon1">
+                    <el-select v-model="form.pokemon1" filterable :placeholder="$t('form.placeholder.pokemon')">
                         <el-option
                                 v-for="item in pokemonNames"
                                 :key="item"
@@ -27,8 +27,8 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="第2只宝可梦" :label-width="formLabelWidth" prop="pokemon2">
-                    <el-select v-model="form.pokemon2" filterable placeholder="可在此输入宝可梦名称">
+                <el-form-item :label="$t('form.pokemon2')" :label-width="formLabelWidth" prop="pokemon2">
+                    <el-select v-model="form.pokemon2" filterable :placeholder="$t('form.placeholder.pokemon')">
                         <el-option
                                 v-for="item in pokemonNames"
                                 :key="item"
@@ -37,8 +37,8 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="第3只宝可梦" :label-width="formLabelWidth" prop="pokemon3">
-                    <el-select v-model="form.pokemon3" filterable placeholder="可在此输入宝可梦名称">
+                <el-form-item :label="$t('form.pokemon3')" :label-width="formLabelWidth" prop="pokemon3">
+                    <el-select v-model="form.pokemon3" filterable :placeholder="$t('form.placeholder.pokemon')">
                         <el-option
                                 v-for="item in pokemonNames"
                                 :key="item"
@@ -47,8 +47,8 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="第4只宝可梦" :label-width="formLabelWidth" prop="pokemon4">
-                    <el-select v-model="form.pokemon4" filterable placeholder="可在此输入宝可梦名称">
+                <el-form-item :label="$t('form.pokemon4')" :label-width="formLabelWidth" prop="pokemon4">
+                    <el-select v-model="form.pokemon4" filterable :placeholder="$t('form.placeholder.pokemon')">
                         <el-option
                                 v-for="item in pokemonNames"
                                 :key="item"
@@ -57,8 +57,8 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="第5只宝可梦" :label-width="formLabelWidth" prop="pokemon5">
-                    <el-select v-model="form.pokemon5" filterable placeholder="可在此输入宝可梦名称">
+                <el-form-item :label="$t('form.pokemon5')" :label-width="formLabelWidth" prop="pokemon5">
+                    <el-select v-model="form.pokemon5" filterable :placeholder="$t('form.placeholder.pokemon')">
                         <el-option
                                 v-for="item in pokemonNames"
                                 :key="item"
@@ -67,8 +67,8 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="第6只宝可梦" :label-width="formLabelWidth" prop="pokemon6">
-                    <el-select v-model="form.pokemon6" filterable placeholder="可在此输入宝可梦名称">
+                <el-form-item :label="$t('form.pokemon6')" :label-width="formLabelWidth" prop="pokemon6">
+                    <el-select v-model="form.pokemon6" filterable :placeholder="$t('form.placeholder.pokemon')">
                         <el-option
                                 v-for="item in pokemonNames"
                                 :key="item"
@@ -77,50 +77,52 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="队伍租借ID截图(可选，支持格式：png, jpg, jpeg)" :label-width="formLabelWidth"
-                              prop="rentalImgUrl">
+                <el-form-item
+                        :label="$t('form.rental') + ' (' + $t('form.placeholder.optional') + ', ' + $t('form.placeholder.uploadFormat') + ')'"
+                        :label-width="formLabelWidth" prop="rentalImgUrl">
                     <upload :imgurl.sync="form.rentalImgUrl"></upload>
                 </el-form-item>
-                <el-form-item label="Showdown队伍文本(可选)" :label-width="formLabelWidth" prop="showdown">
+                <el-form-item :label="$t('form.showdown') + ' (' + $t('form.placeholder.optional') + ')'"
+                              :label-width="formLabelWidth" prop="showdown">
                     <el-input
                             type="textarea"
                             :rows="3"
-                            placeholder="请将Pokemon Showdown队伍文本粘贴至此处"
+                            :placeholder="$t('form.placeholder.showdown')"
                             v-model="form.showdown"
                             maxlength="1600">
                     </el-input>
                 </el-form-item>
-                <el-form-item label="描述（可选）" :label-width="formLabelWidth" prop="description">
+                <el-form-item :label="$t('form.description') + ' (' + $t('form.placeholder.optional') + ')'"
+                              :label-width="formLabelWidth" prop="description">
                     <el-input
                             type="textarea"
                             :rows="3"
-                            placeholder="可以在此处简要描述该队伍（不超过200字，过长可附上外部链接）"
+                            placeholder="$t('form.placeholder.description')"
                             v-model="form.description"
-                            maxlength="200"
+                            maxlength="300"
                             show-word-limit>
                     </el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="closeForm">取 消</el-button>
-                <el-button type="primary" @click="submitDialogVisible = true">确 定</el-button>
-<!--                Confirm dialog-->
-                <el-dialog title="确认提交" :visible.sync="submitDialogVisible" width="56%" append-to-body :modal="false">
+                <el-button type="primary" icon="el-icon-circle-close" circle @click="closeForm"></el-button>
+                <el-button type="primary" icon="el-icon-circle-check" circle
+                           @click="submitDialogVisible = true"></el-button>
+                <!--                Confirm dialog-->
+                <el-dialog :title="$t('alert.dialogTitle')" :visible.sync="submitDialogVisible" width="56%"
+                           append-to-body :modal="false">
                     <el-alert
-                            title="是否确认提交？"
+                            :title="$t('alert.alertTitle')"
                             type="warning"
-                            description="请对将要提交的内容加以确认。
-                            如果输入了Showdown队伍文本，下面会显示相应的队伍预览图。
-                            如果没有上传队伍租借ID图片，这张图将作为代替显示在我们的网站上，否则会使用上传的租借ID图。
-                            如果您没有看见图片生成，或图片异常，
-                            请确保您已提交租借ID图片，并将您的Showdown队伍文本反馈给我们（请点击主页左下角获取联系方式）"
+                            :description=$t('alert.description')
                             :closable="false"
                             show-icon>
                     </el-alert>
                     <showdown2img :pokemonlist="parsedShowdown"></showdown2img>
                     <span slot="footer" class="dialog-footer">
-                        <el-button @click="submitDialogVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="submitForm">确 定</el-button>
+                        <el-button type="primary" icon="el-icon-circle-close" circle
+                                   @click="submitDialogVisible = false"></el-button>
+                        <el-button type="primary" icon="el-icon-circle-check" circle @click="submitForm"></el-button>
                     </span>
                 </el-dialog>
             </div>
@@ -187,7 +189,7 @@
                         {min: 0, max: 1600, message: 'Showdown 文本过长', trigger: 'blur'}
                     ],
                     description: [
-                        {min: 0, max: 200, message: '长度在 200 个字符以内', trigger: 'blur'}
+                        {min: 0, max: 300, message: '长度在 300 个字符以内', trigger: 'blur'}
                     ]
                 },
                 // submit dialog
@@ -198,16 +200,7 @@
         },
         created() {
             this.formats = Formats;
-            // pokemon names would show in el-select
-            this.pokemonNames = [
-                PokemonNames.all('en'),
-                PokemonNames.all('ja'),
-                PokemonNames.all('ko'),
-                PokemonNames.all('zh-Hans'),
-                PokemonNames.all('zh-Hant')
-            ].reduce((r, a) =>
-                a.map((v, i) => (r[i] || []).concat(v)), []
-            ).map(e => e.join('/'));
+            this.pokemonNames = PokemonNames.pmNames4Select;
         },
         methods: {
             // generate image and post
@@ -227,7 +220,7 @@
             },
             // for the form
             resetForm() {
-                this.$refs.teamFormRef.resetFields();
+                this.$refs.form.resetFields();
             },
             closeForm() {
                 this.dialogformvisible = false;
@@ -247,14 +240,14 @@
                     }
                 }
 
-                await this.$refs.teamFormRef.validate(async valid => {
+                await this.$refs.form.validate(async valid => {
                     if (!valid) {
                         this.$message.error('提交内容有误，请修改')
                         return;
                     }
                     this.$message.warning('提交中，请耐心等待不要重复提交');
 
-                    // process this form
+                    // process form data
                     function processPokemon(pname) {
                         return (pname === '') ? '' : pname.split('/', 1)[0]
                     }
