@@ -9,6 +9,7 @@ import (
 	"os"
 	"server/pkg/file"
 	"server/pkg/setting"
+	"server/pkg/util"
 	"strings"
 )
 
@@ -53,12 +54,19 @@ func SaveImage(f multipart.File, fileName string) (fileUrlStr string, err error)
 	if err != nil {
 		return "", err
 	}
-	defer out.Close()
 
-	_, err = io.Copy(out, f)
-	if err != nil {
+	if _, err = io.Copy(out, f); err != nil {
 		return "", err
 	}
+
+	if err = out.Close(); err != nil {
+		return "", err
+	}
+
+	if err = util.Rescale(filePathStr); err != nil {
+		return "", err
+	}
+
 	return GetImageFullUrl(fileName), nil
 }
 

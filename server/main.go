@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
-
 	"server/pkg/setting"
 	"server/routers"
 )
@@ -19,5 +19,12 @@ func main() {
 		MaxHeaderBytes: 1 << 20,
 	}
 
-	s.ListenAndServe()
+
+	if setting.RunMode == "release" {
+		s.ListenAndServeTLS(setting.HTTPS_CRT, setting.HTTPS_KEY)
+	} else if setting.RunMode == "debug" {
+		s.ListenAndServe()
+	} else {
+		log.Fatalln("Unknown RunMode")
+	}
 }

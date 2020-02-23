@@ -97,7 +97,7 @@
                     <el-input
                             type="textarea"
                             :rows="3"
-                            placeholder="$t('form.placeholder.description')"
+                            :placeholder="$t('form.placeholder.description')"
                             v-model="form.description"
                             maxlength="300"
                             show-word-limit>
@@ -109,12 +109,12 @@
                 <el-button type="primary" icon="el-icon-circle-check" circle
                            @click="submitDialogVisible = true"></el-button>
                 <!--                Confirm dialog-->
-                <el-dialog :title="$t('alert.dialogTitle')" :visible.sync="submitDialogVisible" width="56%"
+                <el-dialog :title="$t('form.alert.dialogTitle')" :visible.sync="submitDialogVisible" width="56%"
                            append-to-body :modal="false">
                     <el-alert
-                            :title="$t('alert.alertTitle')"
+                            :title="$t('form.alert.alertTitle')"
                             type="warning"
-                            :description=$t('alert.description')
+                            :description="$t('form.alert.description')"
                             :closable="false"
                             show-icon>
                     </el-alert>

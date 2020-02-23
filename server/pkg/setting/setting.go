@@ -13,9 +13,12 @@ var (
 
 	RunMode string
 
+	URL          string
 	HTTPPort     int
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
+	HTTPS_CRT string
+	HTTPS_KEY string
 
 	ImagePrefixUrl string
 	ImageSavePath  string
@@ -48,9 +51,12 @@ func LoadServer() {
 		log.Fatalf("Fail to get section 'server': %v", err)
 	}
 
+	URL = sec.Key("URL").MustString("127.0.0.1")
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
 	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
 	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
+	HTTPS_CRT = sec.Key("HTTPS_CRT").MustString("crt.pem")
+	HTTPS_KEY = sec.Key("HTTPS_KEY").MustString("key.pem")
 }
 
 func LoadApp() {
