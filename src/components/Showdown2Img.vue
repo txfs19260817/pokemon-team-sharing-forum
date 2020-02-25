@@ -62,7 +62,7 @@
         },
         methods: {
             processStr(s) {
-                return s.replace(/[-\s\[\]']/g, '').toLowerCase();
+                return s.replace(/[-\s\[\].']/g, '').toLowerCase();
             },
             iconPath(name, baseUrl) {
                 name = this.processStr(name);

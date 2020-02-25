@@ -25,6 +25,9 @@ var (
 	ImageMaxSize   int
 	ImageAllowExts string
 
+	RelativePath string
+	Root string
+
 	PageSize  int
 	JwtSecret string
 )
@@ -39,6 +42,7 @@ func init() {
 	LoadBase()
 	LoadServer()
 	LoadApp()
+	LoadStatic()
 }
 
 func LoadBase() {
@@ -72,4 +76,14 @@ func LoadApp() {
 
 	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
+}
+
+func LoadStatic()  {
+	sec, err := Cfg.GetSection("static")
+	if err != nil {
+		log.Fatalf("Fail to get section 'app': %v", err)
+	}
+
+	RelativePath = sec.Key("RelativePath").MustString("/assets")
+	Root = sec.Key("Root").MustString("./assets")
 }

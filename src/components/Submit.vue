@@ -189,7 +189,7 @@
                         {min: 0, max: 1600, message: 'Showdown 文本过长', trigger: 'blur'}
                     ],
                     description: [
-                        {min: 0, max: 300, message: '长度在 300 个字符以内', trigger: 'blur'}
+                        {min: 0, max: 1000, message: '长度在 1000 个字符以内', trigger: 'blur'}
                     ]
                 },
                 // submit dialog

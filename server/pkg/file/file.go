@@ -1,6 +1,7 @@
 package file
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"mime/multipart"
 	"os"
@@ -50,7 +51,7 @@ func IsNotExistMkDir(src string) error {
 func Rename(name string) string {
 	ext := path.Ext(name)
 	fileName := strings.TrimSuffix(name, ext)
-	fileName =  time.Now().Format("20060102150405000") + "T" + util.EncodeMD5(fileName)
+	fileName = time.Now().Format("20060102150405000") + "T" + util.EncodeMD5(fileName)
 
 	return fileName + ext
 }
@@ -73,4 +74,17 @@ func Open(name string, flag int, perm os.FileMode) (*os.File, error) {
 	}
 
 	return f, nil
+}
+
+// parse JSON file
+func UnmarshalJSONArray(path string) (arr []string, err error) {
+	fileJSON, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(fileJSON, &arr)
+	if err != nil {
+		return nil, err
+	}
+	return arr, nil
 }

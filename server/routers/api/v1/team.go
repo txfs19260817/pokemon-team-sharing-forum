@@ -9,6 +9,7 @@ import (
 	"server/pkg/e"
 	"server/pkg/setting"
 	"server/pkg/util"
+	"server/pkg/validator"
 	"strings"
 )
 
@@ -156,7 +157,7 @@ func GetTeamByPokemon(c *gin.Context) {
 func AddTeam(c *gin.Context) {
 	var team models.Team
 	code := e.SUCCESS
-	data := make(map[string]string, 20)
+	data := ""
 
 	defer func() {
 		c.JSON(http.StatusOK, gin.H{
@@ -166,14 +167,15 @@ func AddTeam(c *gin.Context) {
 		})
 	}()
 
-	if err := c.ShouldBindJSON(&team); err != nil {
-		code = e.INVALID_PARAMS
-		log.Printf("ERROR: %s\n", err)
-		return
-	}
-	if valid := team.TeamValidator(data); !valid {
+	//if err := c.ShouldBindJSON(&team); err != nil {
+	//	code = e.INVALID_PARAMS
+	//	log.Printf("ERROR: %s\n", err)
+	//	return
+	//}
+	data, valid := validator.TeamValidator(&team, c.Request)
+	if !valid {
 		code = e.ERROR
-		log.Println("An error occurred when validating the form. See `data` for details")
+		log.Printf("Validation error: %s", data)
 		return
 	}
 	if err := models.AddTeam(&team); err != nil {
