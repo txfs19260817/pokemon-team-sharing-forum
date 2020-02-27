@@ -16,9 +16,9 @@
                                      :src="iconPath(type, typeIconBaseUrl)" :alt="type"/>
                             </div>
                         </div>
-                        <div class="team-pokemon-info-name">{{pm.name + ' Lv. ' + pm.level}}</div>
+                        <div class="team-pokemon-info-name">{{pm.name + ' Lv. ' + (pm.level ? pm.level : 100)}}</div>
                         <div class="team-pokemon-info-ability">{{pm.ability}}</div>
-                        <div class="team-pokemon-info-item">{{pm.item}}</div>
+                        <div class="team-pokemon-info-item">{{(pm.item ? pm.item : '')}}</div>
                     </div>
                     <div class="team-pokemon-moves">
                         <div class="team-pokemon-move" v-for="m in pm.moves">
