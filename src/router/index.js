@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../components/Home';
-import Team from "../components/Team";
-import Format from "../components/Format";
-import Pokemon from "../components/Pokemon";
+import Team from "../components/pages/Team";
+import Format from "../components/pages/Format";
+import Pokemon from "../components/pages/Pokemon";
 
 Vue.use(VueRouter);
 const routes = [

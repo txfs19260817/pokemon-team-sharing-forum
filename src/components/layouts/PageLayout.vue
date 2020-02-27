@@ -2,7 +2,7 @@
     <base-layout :loading.sync="loading" :fail.sync="fail">
         <template v-slot:header></template>
         <template v-slot:default>
-            <h3>{{format}}</h3>
+            <h3>{{category}}</h3>
             <el-row>
                 <el-col class="responsive" :span="6" v-for="(item, index) in teams" :key="index" :offset="0">
                     <card :item="item"><img :src="item.src" @click="lightbox(index)" :alt="item.alt"></card>
@@ -13,46 +13,68 @@
         </template>
         <template v-slot:footer>
             <!-- left: dummy element -->
-            <div style="height: 62px;width: 62px;"></div>
+            <slot name="footer-left">
+                <div style="height: 62px;width: 62px;"></div>
+            </slot>
             <!-- middle: paginator  -->
-            <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    @current-change="handleCurrentChange"
-                    :current-page="curPage"
-                    :page-size="pageSize"
-                    :total="total">
-            </el-pagination>
+            <slot name="footer-middle">
+                <el-pagination
+                        background
+                        layout="prev, pager, next"
+                        @current-change="handleCurrentChange"
+                        :current-page="curPage"
+                        :page-size="pageSize"
+                        :total="total">
+                </el-pagination>
+            </slot>
             <!-- right: language selector  -->
-            <el-select id="lang" size="mini" style="width: 100px;" v-model="curLang" placeholder="Language..."
-                       @change="switchLang">
-                <el-option
-                        v-for="item in languages"
-                        :key="item"
-                        :value="item">
-                </el-option>
-            </el-select>
+            <slot name="footer-right">
+                <el-select
+                        id="lang"
+                        size="mini"
+                        style="width: 100px;"
+                        v-model="curLang"
+                        placeholder="Language..."
+                        @change="switchLang">
+                    <el-option
+                            v-for="item in languages"
+                            :key="item"
+                            :value="item">
+                    </el-option>
+                </el-select>
+            </slot>
         </template>
     </base-layout>
 </template>
 
 <script>
-    import photoswipe from "./Photoswipe";
+    import photoswipe from "../components/Photoswipe";
     import BaseLayout from "./BaseLayout";
     import Card from "./Card";
 
     export default {
-        name: 'Format',
+        name: 'PageLayout',
         components: {
             photoswipe,
             BaseLayout,
             Card
         },
+        props: {
+            // e.g. "formats/", "pokemon/"
+            serverPath: {
+                type: String,
+                required: true
+            },
+            // e.g. "VGC 2020" (if "formats/"), "Incineroar" (if "pokemon/")
+            category: {
+                type: String,
+                required: true
+            }
+        },
         data() {
             return {
-                format:'',
-                url: process.env.VUE_APP_URL,
-                // base
+                serverUrl: '',
+                // for base-layout
                 loading: false,
                 fail: false,
                 // lang
@@ -71,9 +93,9 @@
         },
         methods: {
             // request data
-            getTeamsByFormat(format, page) {
+            getTeamsBy(serverUrl, page) {
                 this.loading = true;
-                this.$http.get('formats/' + format, {
+                this.$http.get(serverUrl, {
                     params: {
                         state: 1,
                         page: page
@@ -125,7 +147,7 @@
             },
             // pagination handlers
             handleCurrentChange(v) {
-                this.getTeamsByFormat(this.format, v);
+                this.getTeamsBy(this.serverUrl, v);
                 this.curPage = v
             },
             // click img to view details
@@ -155,8 +177,8 @@
             }
         },
         created() {
-            this.format = this.$route.params.format;
-            this.getTeamsByFormat(this.format, 1);
+            this.serverUrl = this.serverPath + this.category;
+            this.getTeamsBy(this.serverUrl, 1);
             this.curLang = localStorage.getItem('lang') || 'zh-hans'
         },
     }

@@ -78,8 +78,8 @@
 </template>
 
 <script>
-    import BaseLayout from "./BaseLayout";
-    import {DateConversion} from "../assets/utils";
+    import BaseLayout from "../layouts/BaseLayout";
+    import {DateConversion} from "../../assets/utils";
 
     export default {
         name: "Team",

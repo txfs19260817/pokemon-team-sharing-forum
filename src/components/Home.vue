@@ -67,10 +67,10 @@
 </template>
 
 <script>
-    import teamform from './Submit'
-    import photoswipe from "./Photoswipe";
-    import BaseLayout from "./BaseLayout";
-    import Card from "./Card";
+    import teamform from './components/Submit'
+    import photoswipe from "./components/Photoswipe";
+    import BaseLayout from "./layouts/BaseLayout";
+    import Card from "./layouts/Card";
     import {Formats} from "../assets/data/formats";
 
     const PokemonNames = require('../assets/data/pokemonNames.js');
@@ -85,7 +85,6 @@
         },
         data() {
             return {
-                url: process.env.VUE_APP_URL,
                 // for base-layout
                 loading: false,
                 fail: false,

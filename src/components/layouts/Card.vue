@@ -32,7 +32,7 @@
             <el-row>
                 <el-col :span="3" :offset="21">
                     <a href="#">
-                        <img id="showdown" src="../../public/showdown.png" class="s-button"
+                        <img id="showdown" src="../../../public/showdown.png" class="s-button"
                              @click.stop="showdownButton(item.showdown)" alt="showdown"/>
                     </a>
                 </el-col>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import {DateConversion} from "../assets/utils";
+    import {DateConversion} from "../../assets/utils";
 
     export default {
         name: "Card",

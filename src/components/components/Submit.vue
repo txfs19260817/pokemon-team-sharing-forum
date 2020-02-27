@@ -131,13 +131,13 @@
 </template>
 
 <script>
-    import {Formats} from "../assets/data/formats";
+    import {Formats} from "../../assets/data/formats";
     import {Koffing} from 'koffing';
     import showdown2img from "./Showdown2Img"
     import upload from "./Upload";
     import html2canvas from 'html2canvas';
 
-    const PokemonNames = require('../assets/data/pokemonNames.js');
+    const PokemonNames = require('../../assets/data/pokemonNames.js');
 
     export default {
         name: "teamform",

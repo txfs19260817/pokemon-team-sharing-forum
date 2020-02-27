@@ -3,7 +3,7 @@
         <el-header style="height: 180px;">
             <header>
                 <router-link to='/home'>
-                    <img id="logo" src="../../public/logo.png" alt="Pokemon Team Sharing Forum"/>
+                    <img id="logo" src="../../../public/logo.png" alt="Pokemon Team Sharing Forum"/>
                 </router-link>
                 <slot name="header"></slot>
             </header>
@@ -14,7 +14,10 @@
                     <h2>Loading...</h2>
                 </div>
                 <div v-if="fail" class="loading">
-                    <h2>Pikachu's Sitrus Berry has been took away :'(</h2>
+                    <h2>Sobble's Sitrus Berry has been took away :'(</h2>
+                    <div class="error-image">
+                        <img src="../../../public/error.jpg" alt="error" />
+                    </div>
                 </div>
                 <slot></slot>
             </el-main>
@@ -42,5 +45,7 @@
 </script>
 
 <style scoped>
-
+    .error-image {
+        text-align: center;
+    }
 </style>

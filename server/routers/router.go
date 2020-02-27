@@ -25,19 +25,26 @@ func InitRouter() *gin.Engine {
 		// https
 		r.Use(middleware.TlsHandler())
 
-		// limit access rate by custom key (here is IP) and rate
-		r.Use(limit.NewRateLimiter(func(c *gin.Context) string {
+		// limit access rate by custom key (here is IP) and rate for POST
+		limiterMiddleware := limit.NewRateLimiter(func(c *gin.Context) string {
 			return c.ClientIP() // limit rate by client ip
 		}, func(c *gin.Context) (*rate.Limiter, time.Duration) {
 			// limit 1/60 qps/clientIp and permit bursts of at most 10 tokens,
 			// and the limiter liveness time duration is 1 hour
 			// https://www.cyhone.com/articles/usage-of-golang-rate/
-			return rate.NewLimiter(rate.Every(60*time.Second), 10), time.Hour
+			return rate.NewLimiter(rate.Every(10*time.Millisecond), 10), time.Hour
 		}, func(c *gin.Context) {
 			if c.Request.Method == http.MethodPost {
 				c.AbortWithStatus(429) // handle exceed rate limit request
 			}
-		}))
+		})
+		r.Use(func(c *gin.Context) {
+			if c.Request.Method == "POST" {
+				limiterMiddleware(c)
+				return
+			}
+			c.Next()
+		})
 
 	} else if setting.RunMode == "debug" {
 		r.Use(middleware.Cors()) // Cross-Origin Resource Sharing
