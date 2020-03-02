@@ -30,9 +30,9 @@ func InitRouter() *gin.Engine {
 			return c.ClientIP() // limit rate by client ip
 		}, func(c *gin.Context) (*rate.Limiter, time.Duration) {
 			// limit 1/60 qps/clientIp and permit bursts of at most 10 tokens,
-			// and the limiter liveness time duration is 1 hour
+			// and the limiter liveness time duration is 1 day
 			// https://www.cyhone.com/articles/usage-of-golang-rate/
-			return rate.NewLimiter(rate.Every(10*time.Millisecond), 10), time.Hour
+			return rate.NewLimiter(rate.Every(time.Minute), 10), 24 * time.Hour
 		}, func(c *gin.Context) {
 			if c.Request.Method == http.MethodPost {
 				c.AbortWithStatus(429) // handle exceed rate limit request

@@ -75,7 +75,7 @@ header::before {
     background-size: cover;
     border-bottom: .2em solid #fff;
 }
-
+/* clearfix */
 .clearfix:before,
 .clearfix:after {
     display: table;
@@ -84,4 +84,14 @@ header::before {
 
 .clearfix:after {
     clear: both
+}
+
+/* iconfont https://www.jianshu.com/p/8379597e3f97 */
+[class^="el-icon-social"], [class*="el-icon-social"]
+{
+    font-family:"iconfont" !important;
+    font-size:24px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }

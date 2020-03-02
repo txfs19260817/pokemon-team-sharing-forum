@@ -14,6 +14,10 @@
                                 <td><img :src="team.rentalImgUrl" alt="team.title" width="768" height="432"/></td>
                             </tr>
                             <tr>
+                                <td>分享</td>
+                                <td><share :team="team"></share></td>
+                            </tr>
+                            <tr>
                                 <td>{{$t('form.author')}}</td>
                                 <td>{{team.author}}</td>
                             </tr>
@@ -32,7 +36,7 @@
                             <tr>
                                 <td>宝可梦</td>
                                 <td>
-                                    <el-breadcrumb separator="/">
+                                    <el-breadcrumb separator=" ">
                                         <el-breadcrumb-item :to="'/pokemon/'+team.pokemon1">
                                             <el-tag type="" v-if="team.pokemon1">{{team.pokemon1}}</el-tag>
                                         </el-breadcrumb-item>
@@ -49,8 +53,12 @@
                                             <el-tag type="danger" v-if="team.pokemon5">{{team.pokemon5}}</el-tag>
                                         </el-breadcrumb-item>
                                         <el-breadcrumb-item :to="'/pokemon/'+team.pokemon6">
-                                            <el-tag type="" v-if="team.pokemon6">{{team.pokemon6}}</el-tag>
+                                            <el-tag effect="dark" v-if="team.pokemon6">{{team.pokemon6}}</el-tag>
                                         </el-breadcrumb-item>
+                                        <div style="display:none;">
+                                            A dummy div to make the cursor appears as a pointing hand,
+                                            when hovering over the last tag.
+                                        </div>
                                     </el-breadcrumb>
                                 </td>
                             </tr>
@@ -63,12 +71,7 @@
                     </el-tab-pane>
                     <!--                    Showdown Tab-->
                     <el-tab-pane class="showdown" label="Showdown">
-                        <el-input
-                                id="showdowntext"
-                                type="textarea"
-                                v-model="team.showdown"
-                                :rows="28">
-                        </el-input>
+                        <el-input id="showdowntext" type="textarea" v-model="team.showdown" :rows="40"></el-input>
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -79,6 +82,7 @@
 
 <script>
     import BaseLayout from "../layouts/BaseLayout";
+    import Share from "../components/Share";
     import {DateConversion} from "../../assets/utils";
 
     export default {
@@ -92,7 +96,8 @@
             }
         },
         components: {
-            BaseLayout
+            BaseLayout,
+            Share
         },
         watch: {
             // call again the method if the route changes
