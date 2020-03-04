@@ -3,6 +3,8 @@
   "message": {
     "hello": "你好"
   },
+
+
   "form": {
     "form": "队伍表格",
     "title": "标题",
@@ -34,5 +36,12 @@
     }
   },
 
-  "about": "欢迎使用本网站，您可以在此分享您使用过的队伍，或者查看其他玩家分享的队伍。<h3>网站特色</h3><h4>分享队伍</h4>\n您可以在本网站上与全世界的玩家们分享您喜爱的队伍。\n您不仅可以选择分享游戏软件中导出的租借队伍ID界面（下面简称租借ID），\n还可以上传<a href=\"https://play.pokemonshowdown.com/\">Pokemon Showdown</a>格式的队伍文本（下面简称Showdown文本）。<strong>我们强烈建议您在发布队伍的时候同时上传二者。</strong>\n如果您选择仅分享Showdown文本，本网站还会从文本导出一张租借ID样式的队伍预览图，这张图将代替租借ID显示在我们的网站上。\n您的队伍在提交完毕后不会立即显示在本网站上，请您耐心等待审核。<h4>获取队伍</h4>\n网页上会展示用户上传的队伍预览图（如果上传用户没有提交游戏软件中导出的租借队伍ID，则以根据Showdown文本导出的队伍预览图作为代替）。\n点击预览图下方的<b>S</b>按钮，可以查看并复制队伍的Showdown文本。<h3>与我们联系</h3>\n如果您认为网站上所发表的队伍侵犯了您的创作权，请发送邮件至<a href=\"mailto:zeminjiang@mail.ru?subject=Pokemon%20team%20sharing%20forum%20\">zeminjiang@mail.ru</a>\n并附上相关证明。\n如果您在使用本网站中遇到任何问题，或愿意作出贡献，\n热烈欢迎到<a href=\"https://github.com/txfs19260817/pokemon-team-sharing-forum\">Github</a>上提交issue或pull request，\n或者发送邮件进行反馈。<h3>License</h3>\n本网站使用的资源（图标等）版权归 © Nintendo/Creatures Inc./GAME FREAK Inc. 所有"
+
+  "navigation": {
+    "share": "分享队伍",
+    "search": "搜索",
+    "pokemon": "宝可梦名称",
+    "format": "对战模式"
+  }
+
 }

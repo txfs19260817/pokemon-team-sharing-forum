@@ -7,6 +7,7 @@
                 accept="image/jpeg,image/jpg,image/png"
                 :limit=1
                 :drag="true"
+                :data="postToken"
                 :before-upload="handleBeforeUpload"
                 :on-exceed="handleExceed"
                 :on-remove="handleRemove"
@@ -23,15 +24,17 @@
 <script>
     export default {
         name: "upload",
-        props:{
+        props: {
             // uploaded rental image url
             imgurl: {
                 type: String,
-                default:''
+                default: ''
             },
         },
         data() {
             return {
+                // reCaptcha token
+                postToken: {},
                 // server upload api
                 destinationUrl: process.env.VUE_APP_UPLOAD,
                 // preview url
@@ -41,7 +44,20 @@
             }
         },
         methods: {
-            handleBeforeUpload(file) {
+            // reCaptcha
+            async recaptcha() {
+                // (optional) Wait until recaptcha has been loaded.
+                await this.$recaptchaLoaded();
+                // Execute reCAPTCHA with action "upload".
+                this.postToken.token = await this.$recaptcha('upload');
+            },
+            async handleBeforeUpload(file) {
+                await this.recaptcha();
+                if (!('token' in this.postToken)) {
+                    this.$message.error('reCAPTCHA get token failed! Please contact administrator. ');
+
+                    return false
+                }
                 let test = /^image\/(jpeg|png|jpg)$/.test(file.type);
                 const isLt2M = file.size / 1024 / 1024 < 2;
                 if (!test) {

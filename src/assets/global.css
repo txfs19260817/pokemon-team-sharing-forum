@@ -4,7 +4,7 @@ html, body, #app {
     padding: 0;
 }
 
-.el-header, .el-main, .el-footer {
+.el-header, .el-main, .el-aside, .el-footer {
     background-color: #212221;
     color: #ddedf4;
 }
@@ -23,11 +23,11 @@ html, body, #app {
     line-height: 60px;
 }
 
-.el-pagination.is-background .el-pager li:not(.disabled).active{
+.el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #c83c3c !important;
 }
 
-.el-pagination.is-background .el-pager li:hover{
+.el-pagination.is-background .el-pager li:hover {
     color: #c83c3c !important;
 }
 
@@ -75,6 +75,7 @@ header::before {
     background-size: cover;
     border-bottom: .2em solid #fff;
 }
+
 /* clearfix */
 .clearfix:before,
 .clearfix:after {
@@ -87,11 +88,10 @@ header::before {
 }
 
 /* iconfont https://www.jianshu.com/p/8379597e3f97 */
-[class^="el-icon-social"], [class*="el-icon-social"]
-{
-    font-family:"iconfont" !important;
-    font-size:24px;
-    font-style:normal;
+[class^="el-icon-social"], [class*="el-icon-social"] {
+    font-family: "iconfont" !important;
+    font-size: 24px;
+    font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

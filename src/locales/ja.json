@@ -3,6 +3,8 @@
   "message": {
     "hello": "こんにちは"
   },
+
+
   "form": {
     "form": "チームフォーム",
     "title": "タイトル",

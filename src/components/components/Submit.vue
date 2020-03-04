@@ -120,7 +120,7 @@
                     </el-alert>
                     <showdown2img :pokemonlist="parsedShowdown"></showdown2img>
                     <span slot="footer" class="dialog-footer">
-                        <el-button type="primary" icon="el-icon-circle-close" circle
+                        <el-button type="info" icon="el-icon-circle-close" circle
                                    @click="submitDialogVisible = false"></el-button>
                         <el-button type="primary" icon="el-icon-circle-check" circle @click="submitForm"></el-button>
                     </span>

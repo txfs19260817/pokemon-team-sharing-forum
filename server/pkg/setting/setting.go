@@ -29,7 +29,7 @@ var (
 	Root string
 
 	PageSize  int
-	JwtSecret string
+	ReCaptchaSecret string
 )
 
 func init() {
@@ -74,7 +74,7 @@ func LoadApp() {
 	ImageMaxSize = sec.Key("ImageMaxSize").MustInt(2) * 1024 * 1024
 	ImageAllowExts = sec.Key("ImageAllowExts").MustString(".jpg,.jpeg,.png")
 
-	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
+	ReCaptchaSecret = sec.Key("RECAPTCHA_SECRET").MustString("!@)*#)!@U#@*!@!)")
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
 }
 

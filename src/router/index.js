@@ -4,6 +4,7 @@ import Home from '../components/Home';
 import Team from "../components/pages/Team";
 import Format from "../components/pages/Format";
 import Pokemon from "../components/pages/Pokemon";
+import About from "../components/pages/About";
 
 Vue.use(VueRouter);
 const routes = [
@@ -12,7 +13,8 @@ const routes = [
     { path: '/home', component: Home },// lazy load () => import('../components/Home')
     { path: '/team/:id', component: Team },
     { path: '/formats/:format', component: Format },
-    { path: '/pokemon/:pokemon', component: Pokemon }
+    { path: '/pokemon/:pokemon', component: Pokemon },
+    { path: '/about', component: About }
 ];
 
 const router = new VueRouter({

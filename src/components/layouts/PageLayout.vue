@@ -11,38 +11,16 @@
             <div class="clearfix"></div>
             <photoswipe ref="photoswipe" :items="teams"></photoswipe>
         </template>
-        <template v-slot:footer>
-            <!-- left: dummy element -->
-            <slot name="footer-left">
-                <div style="height: 62px;width: 62px;"></div>
-            </slot>
-            <!-- middle: paginator  -->
-            <slot name="footer-middle">
-                <el-pagination
-                        background
-                        layout="prev, pager, next"
-                        @current-change="handleCurrentChange"
-                        :current-page="curPage"
-                        :page-size="pageSize"
-                        :total="total">
-                </el-pagination>
-            </slot>
-            <!-- right: language selector  -->
-            <slot name="footer-right">
-                <el-select
-                        id="lang"
-                        size="mini"
-                        style="width: 100px;"
-                        v-model="curLang"
-                        placeholder="Language..."
-                        @change="switchLang">
-                    <el-option
-                            v-for="item in languages"
-                            :key="item"
-                            :value="item">
-                    </el-option>
-                </el-select>
-            </slot>
+        <!--        footer-->
+        <template v-slot:footer-middle>
+            <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    @current-change="handleCurrentChange"
+                    :current-page="curPage"
+                    :page-size="pageSize"
+                    :total="total">
+            </el-pagination>
         </template>
     </base-layout>
 </template>
@@ -77,11 +55,6 @@
                 // for base-layout
                 loading: false,
                 fail: false,
-                // lang
-                languages: ['zh-hans', 'en', 'ja'],
-                curLang: 'zh-hans',
-                // showdown text dialog visible
-                dialogshowdowntextvisible: false,
                 // page
                 total: 1,
                 pageSize: 8,
@@ -154,32 +127,10 @@
             lightbox(index) {
                 this.$refs.photoswipe.imagePreview(index);
             },
-            // show showdown text
-            showdownButton(index) {
-                if (this.teams[index].showdown.length > 0) {
-                    this.showdownText = this.teams[index].showdown;
-                    this.dialogshowdowntextvisible = true;
-                } else {
-                    this.$message.warning("该队伍没有提供showdown队伍文本");
-                    this.dialogshowdowntextvisible = false;
-                }
-            },
-            copyButton() {
-                let copyText = document.getElementById("showdowntext");
-                copyText.select();
-                copyText.setSelectionRange(0, 99999);
-                document.execCommand("copy");
-            },
-            switchLang(lang) {
-                this.$i18n.locale = lang;
-                // save lang in localStorage
-                localStorage.setItem('lang', lang);
-            }
         },
         created() {
             this.serverUrl = this.serverPath + this.category;
             this.getTeamsBy(this.serverUrl, 1);
-            this.curLang = localStorage.getItem('lang') || 'zh-hans'
         },
     }
 </script>

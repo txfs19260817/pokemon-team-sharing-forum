@@ -13,6 +13,7 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
+Setup `.env` file, then
 ```
 npm run serve
 ```
@@ -27,6 +28,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## TODOs
 - [ ] i18n
-- [ ] filter results by formats and pokemon
+- [x] filter results by formats and pokemon
 - [x] About Page
 - [ ] Home Page design

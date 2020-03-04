@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import {
+    Tooltip,
+    Menu,
+    MenuItem,
+    MenuItemGroup,
+    Submenu,
     Breadcrumb,
     BreadcrumbItem,
     Card,
@@ -13,6 +18,7 @@ import {
     Container,
     Header,
     Main,
+    Aside,
     Footer,
     Alert,
     Upload,
@@ -27,6 +33,11 @@ import {
     Message
 } from 'element-ui'
 
+Vue.use(Tooltip);
+Vue.use(Menu);
+Vue.use(MenuItem);
+Vue.use(MenuItemGroup);
+Vue.use(Submenu);
 Vue.use(Breadcrumb);
 Vue.use(BreadcrumbItem);
 Vue.use(Card);
@@ -40,6 +51,7 @@ Vue.use(Pagination);
 Vue.use(Container);
 Vue.use(Header);
 Vue.use(Main);
+Vue.use(Aside);
 Vue.use(Footer);
 Vue.use(Alert);
 Vue.use(Upload);

@@ -9,8 +9,8 @@ import (
 	"server/pkg/e"
 	"server/pkg/setting"
 	"server/pkg/upload"
+	"server/pkg/util"
 )
-
 
 // @Summary Upload an image 上传图片
 // @Accept mpfd
@@ -19,6 +19,7 @@ import (
 // @Success 200 {object} string "{"code":200,"data":{},"msg":"ok"}"
 // @Failure 400 {object} string "{"code":400,"data":{},"msg":"请求参数错误"}"
 // @Failure 500 {object} string "{"code":500,"data":{},"msg":"fail"}"
+// @Failure 20004 {object} string "{"code":20004,"data":{},"msg":"Token错误"}"
 // @Router /api/v1/upload [post]
 func UploadImage(c *gin.Context) {
 	code := e.SUCCESS
@@ -31,6 +32,15 @@ func UploadImage(c *gin.Context) {
 			"data": data,
 		})
 	}()
+
+	// reCaptcha
+	token := c.Request.FormValue("token")
+	if err := util.ReCaptcha(token); err != nil {
+		code = e.ERROR_AUTH
+		data = fmt.Sprintf("ERROR (ReCaptcha): %s\n", err)
+		log.Println(data)
+		return
+	}
 
 	// handle request
 	file, header, err := c.Request.FormFile("upload")

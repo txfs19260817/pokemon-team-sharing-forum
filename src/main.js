@@ -4,6 +4,8 @@ import router from './router'
 import './plugins/element.js'
 // Global style
 import './assets/global.css'
+// reCaptcha
+import './plugins/reCaptcha'
 
 import axios from 'axios'
 import i18n from './i18n'

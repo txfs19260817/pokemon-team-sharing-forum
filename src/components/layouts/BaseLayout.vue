@@ -9,28 +9,53 @@
             </header>
         </el-header>
         <el-container>
-            <el-main>
-                <div v-if="loading" class="loading">
-                    <h2>Loading...</h2>
-                </div>
-                <div v-if="fail" class="loading">
-                    <h2>Sobble's Sitrus Berry has been took away :'(</h2>
-                    <div class="error-image">
-                        <img src="../../../public/error.jpg" alt="error" />
+            <el-container>
+                <el-aside width="200px">
+                    <navigator></navigator>
+                </el-aside>
+                <el-main>
+                    <div v-if="loading" class="loading">
+                        <h2>Loading...</h2>
                     </div>
-                </div>
-                <slot></slot>
-            </el-main>
+                    <div v-if="fail" class="loading">
+                        <h2>Sobble's Sitrus Berry has been took away :'(</h2>
+                        <div class="error-image">
+                            <img src="../../../public/error.jpg" alt="error"/>
+                        </div>
+                    </div>
+                    <slot></slot>
+                </el-main>
+            </el-container>
             <el-footer style="height: 62px;">
-                <slot name="footer"></slot>
+                <slot name="footer-left">
+                    <el-tooltip class="item" effect="dark" content="About" placement="top-start">
+                        <router-link to='/about'>
+                            <img id="about" src="../../../public/about.png" width="62" height="62" alt="about"/>
+                        </router-link>
+                    </el-tooltip>
+                </slot>
+                <slot name="footer-middle">
+                    <!-- dummy element-->
+                    <div style="height: 62px; width: 62px;"></div>
+                </slot>
+                <slot name="footer-right">
+                    <language></language>
+                </slot>
             </el-footer>
         </el-container>
     </el-container>
 </template>
 
 <script>
+    import Language from "../components/Language";
+    import Navigator from "../components/Navigator";
+
     export default {
         name: "BaseLayout",
+        components: {
+            Language,
+            Navigator
+        },
         props: {
             loading: {
                 type: Boolean,
