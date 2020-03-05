@@ -14,7 +14,7 @@
             网页上会展示用户上传的队伍预览图（如果上传用户没有提交游戏软件中导出的租借队伍ID，则以根据Showdown文本导出的队伍预览图作为代替）。
             点击预览图下方的<b>S</b>按钮，可以查看并复制队伍的Showdown文本。
             <h3>与我们联系</h3>
-            我们开通了推特<a href="https://twitter.com/poke_share">@poke_share</a>
+            我们开通了<del>推特<a href="https://twitter.com/poke_share">@poke_share</a></del>
             和微博<a href="https://www.weibo.com/u/7403524801">@Poke_Share</a>。
             如果您在使用本网站中遇到任何问题，或愿意作出贡献，
             热烈欢迎到<a href="https://github.com/txfs19260817/pokemon-team-sharing-forum">Github</a>上提交issue或pull request，

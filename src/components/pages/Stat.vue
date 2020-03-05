@@ -48,7 +48,6 @@
                 this.getStatByFormat(this.selectedFormat);
             },
             drawPieChart(d) {
-                // http://127.0.0.1:8888/assets/pokemon-icons/2d/abomasnow.png
                 this.echarts.init(document.getElementById('pie'), 'light').setOption({
                     title: {
                         text: this.selectedFormat + ' 使用率统计',
@@ -73,7 +72,7 @@
                         {
                             name: this.selectedFormat + ' Usage',
                             type: 'pie',
-                            radius: '55%',
+                            radius: '80%',
                             roseType: 'angle',
                             data: d
                         }
@@ -83,6 +82,7 @@
             getStatByFormat(format) {
                 this.loading = true;
                 this.$http.get('stat', {
+                    withCredentials: true,
                     params: {
                         format: format
                     }
@@ -103,7 +103,29 @@
                         this.statIsAvailable = false;
                         this.$message.error("请求数据错误");
                     }
-                }).catch(err => {
+                }).catch(error => {
+                    // Error
+                    if (error.response) {
+                        /*
+                         * The request was made and the server responded with a
+                         * status code that falls out of the range of 2xx
+                         */
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                    } else if (error.request) {
+                        /*
+                         * The request was made but no response was received, `error.request`
+                         * is an instance of XMLHttpRequest in the browser and an instance
+                         * of http.ClientRequest in Node.js
+                         */
+                        console.log(error.request);
+                    } else {
+                        // Something happened in setting up the request and triggered an Error
+                        console.log('Error', error.message);
+                    }
+                    console.log(error.config);
+
                     this.loading = false;
                     this.fail = true;
                     this.statIsAvailable = false;

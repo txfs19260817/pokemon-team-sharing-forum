@@ -26,7 +26,7 @@
                 </el-menu-item-group>
             </el-submenu>
 
-            <el-menu-item index="3" @click="goBoard">
+            <el-menu-item index="3" @click="goBoard" disabled>
                 <i class="el-icon-data-board"></i>
                 <span slot="title">{{$t('navigation.board')}}</span>
             </el-menu-item>
