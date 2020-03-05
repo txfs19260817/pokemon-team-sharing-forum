@@ -184,3 +184,20 @@ func AddTeam(c *gin.Context) {
 		return
 	}
 }
+
+func GetPokemonStat(c *gin.Context)  {
+	code := e.SUCCESS
+	data := make(map[string]int)
+	format := c.Query("format")
+	if format == "" {
+		code = e.INVALID_PARAMS
+	} else{
+		data = models.GetPokemonNumByFormat(format)
+	}
+
+	c.JSON(code, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": data,
+	})
+}

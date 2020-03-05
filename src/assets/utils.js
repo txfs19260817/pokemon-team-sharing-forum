@@ -1,3 +1,6 @@
+import {BattlePokedex} from "./data/pokedex"
+import {BattleMovedex} from "./data/moves"
+
 /**
  * @return {string}
  */
@@ -10,4 +13,47 @@ export function DateConversion(timestamp) {
     let m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
     let s = date.getSeconds();
     return Y + M + D + h + m + s
+}
+
+export function ReconstructObject(obj) {
+    let res = [];
+    for (let [key, value] of Object.entries(obj)) {
+        res.push({name: key, value: value})
+    }
+    return res
+}
+
+export function SortObjectArrayByValue(arr) {
+    return arr.sort((a, b) => (b.value - a.value));
+}
+
+/**
+ * @return {string}
+ */
+export function ProcessStr(s) {
+    return s.replace(/[-\s\[\].']/g, '').toLowerCase();
+}
+
+/**
+ * @return {string}
+ */
+export function IconPath(name, category, ext = '.png') {
+    name = ProcessStr(name);
+    if (category === "pokemon") {
+        return process.env.VUE_APP_PM_ICONS + name + ext
+    }
+    if (category === "items" || category === "item") {
+        return process.env.VUE_APP_ITEM_ICONS + name + ext
+    }
+    if (category === "movetypes" || category === "movetype") {
+        name = BattleMovedex[name].type.toLowerCase();
+        return process.env.VUE_APP_MOVETYPE_ICONS + name + this.ext
+    }
+    if (category === "types" || category === "type") {
+        let lang = "eng";
+        let filename = ["type", name, lang].join('-');
+        return process.env.VUE_APP_TYPE_ICONS + filename + ext
+    }
+
+    console.log("Error: category [" + category + "] is not valid! ")
 }

@@ -65,6 +65,8 @@ func InitRouter() *gin.Engine {
 		apiv1.GET("/formats/:format", v1.GetTeamByFormat)
 		// 根据模式获取队伍
 		apiv1.GET("/pokemon/:pokemon", v1.GetTeamByPokemon)
+		// 统计宝可梦
+		apiv1.GET("/stat", v1.GetPokemonStat)
 		// 新建队伍
 		apiv1.POST("/teams", v1.AddTeam)
 

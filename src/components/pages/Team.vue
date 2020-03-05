@@ -1,5 +1,5 @@
 <template>
-    <base-layout :loading.sync="loading" :fail.sync="fail">
+    <base-layout :loading.sync="loading" :fail.sync="fail" :show-nav="false">
         <template v-slot:header></template>
         <template v-slot:default>
             <div v-if="team" class="content">

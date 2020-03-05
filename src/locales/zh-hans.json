@@ -1,7 +1,8 @@
 {
   "pokemon": "宝可梦",
   "message": {
-    "hello": "你好"
+    "hello": "你好",
+    "fetchDataError": "请求数据错误"
   },
 
 
@@ -41,7 +42,14 @@
     "share": "分享队伍",
     "search": "搜索",
     "pokemon": "宝可梦名称",
-    "format": "对战模式"
+    "format": "对战模式",
+    "board": "公告板",
+    "stat": "统计"
+  },
+
+  "stat": {
+    "title": "根据模式查询宝可梦使用率",
+    "noData": "暂无数据，请尝试其他对战模式"
   }
 
 }

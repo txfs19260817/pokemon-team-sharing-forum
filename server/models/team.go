@@ -1,9 +1,9 @@
 package models
 
 import (
-	"github.com/astaxie/beego/validation"
+	"fmt"
 	"github.com/jinzhu/gorm"
-	"log"
+	"server/pkg/util"
 	"time"
 )
 
@@ -23,45 +23,6 @@ type Team struct {
 	Showdown     string    `json:"showdown"`
 	Description  string    `json:"description"`
 	State        int       `json:"state"`
-}
-
-// tools
-func FormatValidatorFunc(v *validation.Validation, obj interface{}, key string) {
-	fname, ok := obj.(string)
-	if !ok {
-		// wrong use case
-		v.AddError(key, "Format 类型不正确")
-		return
-	}
-	for _, f := range formats {
-		if f == fname {
-			return
-		}
-	}
-	v.AddError(key, "暂不支持的对战模式")
-	return
-}
-
-func (team *Team) TeamValidator(err map[string]string) bool {
-	valid := validation.Validation{}
-	valid.MaxSize(team.Title, 64, "Title").Message("标题最长为64字符")
-	valid.MaxSize(team.Author, 64, "Author").Message("作者名最长为64字符")
-	e := validation.AddCustomFunc("FormatValidatorFunc", FormatValidatorFunc)
-	if e != nil {
-		log.Println("Format 验证错误：", e)
-	}
-	valid.MinSize(team.Pokemon1, 2, "Pokemon1").Message("请选择至少一只宝可梦")
-	// TODO: 验证6只pm名字合法性
-	// TODO: 验证showdown语法合法性
-	valid.MaxSize(team.Description, 500, "Description").Message("简介最长为500字符，过长建议附外部链接")
-	valid.Range(team.State, 0, 1, "State").Message("状态只允许0或1")
-	if valid.HasErrors() {
-		for _, e := range valid.Errors {
-			err[e.Key] = e.Message
-		}
-		return false
-	}
-	return true
 }
 
 // 查询
@@ -112,6 +73,33 @@ func GetTeamTotalByPokemon(maps interface{}, pokemon string) (count int) {
 		Count(&count)
 
 	return
+}
+
+// 统计每种宝可梦数量
+func GetPokemonNumByFormat(format string) map[string]int {
+	type Result struct {
+		P   string
+		Cnt int
+	}
+
+	var results []Result
+	resultsMap := make(map[string]int)
+	for i := 1; i <= 6; i++ {
+		// select pokemon%i as p, count(*) as cnt from ptsf_team group by pokemon%i;
+		db.Table("ptsf_team").
+			Select(fmt.Sprintf("pokemon%d as p, count(*) as cnt", i)).
+			Where("format = ? AND state = ?", format, 1).
+			Group(fmt.Sprintf("pokemon%d", i)).
+			Scan(&results)
+		// slice to map
+		tempMap := make(map[string]int)
+		for _, r := range results {
+			tempMap[r.P] = r.Cnt
+		}
+		// merge temp_map to results_map
+		util.UnionKeys(resultsMap, tempMap)
+	}
+	return resultsMap
 }
 
 // 增加

@@ -10,10 +10,10 @@
         </el-header>
         <el-container>
             <el-container>
-                <el-aside width="200px">
+                <el-aside v-if="showNav" width="200px">
                     <navigator></navigator>
                 </el-aside>
-                <el-main>
+                <el-main v-loading="loading" element-loading-background="rgba(56, 56, 56, 0.9)">
                     <div v-if="loading" class="loading">
                         <h2>Loading...</h2>
                     </div>
@@ -65,6 +65,10 @@
                 type: Boolean,
                 default: false
             },
+            showNav: {
+                type: Boolean,
+                default: true
+            }
         }
     }
 </script>

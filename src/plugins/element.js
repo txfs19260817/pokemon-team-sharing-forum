@@ -30,7 +30,8 @@ import {
     Form,
     FormItem,
     Input,
-    Message
+    Message,
+    Loading
 } from 'element-ui'
 
 Vue.use(Tooltip);
@@ -63,5 +64,6 @@ Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);
+Vue.use(Loading);
 Vue.prototype.$message = Message;
-// Vue.prototype.$loading = Loading.service;
+Vue.prototype.$loading = Loading.service;

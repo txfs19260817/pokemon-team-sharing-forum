@@ -68,7 +68,7 @@ header::before {
     width: 100%;
     height: 24em;
     z-index: -1;
-    transform: skewY(-2.0deg);
+    transform: skewY(-1.7deg);
     background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)),
     url(../../public/header.jpg) no-repeat center,
     linear-gradient(#4e4376, #2b5876);

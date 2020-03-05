@@ -105,9 +105,8 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button type="primary" icon="el-icon-circle-close" circle @click="closeForm"></el-button>
-                <el-button type="primary" icon="el-icon-circle-check" circle
-                           @click="submitDialogVisible = true"></el-button>
+                <el-button icon="el-icon-circle-close" circle @click="closeForm"></el-button>
+                <el-button type="primary" icon="el-icon-circle-check" circle @click="submitDialogVisible = true"></el-button>
                 <!--                Confirm dialog-->
                 <el-dialog :title="$t('form.alert.dialogTitle')" :visible.sync="submitDialogVisible" width="56%"
                            append-to-body :modal="false">
@@ -120,8 +119,7 @@
                     </el-alert>
                     <showdown2img :pokemonlist="parsedShowdown"></showdown2img>
                     <span slot="footer" class="dialog-footer">
-                        <el-button type="info" icon="el-icon-circle-close" circle
-                                   @click="submitDialogVisible = false"></el-button>
+                        <el-button icon="el-icon-circle-close" circle @click="submitDialogVisible = false"></el-button>
                         <el-button type="primary" icon="el-icon-circle-check" circle @click="submitForm"></el-button>
                     </span>
                 </el-dialog>

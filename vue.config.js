@@ -18,7 +18,8 @@ module.exports = {
                 axios: 'axios',
                 // koffing: 'Koffing',
                 photoswipe: 'PhotoSwipe',
-                html2canvas: 'html2canvas'
+                html2canvas: 'html2canvas',
+                echarts: 'echarts'
             });
         });
 

@@ -57,6 +57,7 @@
         },
         watch: {
             pokemonlist() {
+                // update the pokemon list when Showdown paste changed
                 this.pokemon = this.pokemonlist;
             }
         },

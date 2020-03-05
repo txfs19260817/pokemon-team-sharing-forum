@@ -5,6 +5,8 @@ import Team from "../components/pages/Team";
 import Format from "../components/pages/Format";
 import Pokemon from "../components/pages/Pokemon";
 import About from "../components/pages/About";
+import Board from "../components/pages/Board";
+import Stat from "../components/pages/Stat";
 
 Vue.use(VueRouter);
 const routes = [
@@ -14,6 +16,8 @@ const routes = [
     { path: '/team/:id', component: Team },
     { path: '/formats/:format', component: Format },
     { path: '/pokemon/:pokemon', component: Pokemon },
+    { path: '/board', component: Board },
+    { path: '/stat', component: Stat },
     { path: '/about', component: About }
 ];
 
