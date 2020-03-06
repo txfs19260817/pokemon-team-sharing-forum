@@ -101,7 +101,7 @@ func GetTeamByFormat(c *gin.Context) {
 	})
 }
 
-// @Summary Get multiple teams by format 根据模式获取多个队伍
+// @Summary Get multiple teams by Pokemon 根据宝可梦获取多个队伍
 // @Produce  json
 // @Param pokemon path string true "Pokemon"
 // @Param state query int false "State"
@@ -188,7 +188,7 @@ func AddTeam(c *gin.Context) {
 func GetPokemonStat(c *gin.Context)  {
 	code := e.SUCCESS
 	data := make(map[string]int)
-	format := c.Query("format")
+	format := c.Param("format")
 	if format == "" {
 		code = e.INVALID_PARAMS
 	} else{

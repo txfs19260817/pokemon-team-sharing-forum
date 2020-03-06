@@ -18,8 +18,10 @@
     "pokemon5": "第5只宝可梦",
     "pokemon6": "第6只宝可梦",
     "rental": "队伍租借ID截图",
-    "showdown": "Pokémon Showdown队伍文本",
+    "showdown": "Pokémon Showdown 队伍文本",
     "description": "描述",
+    "created_at": "上传时间",
+    "share": "分享至",
 
     "placeholder": {
       "optional": "可选",

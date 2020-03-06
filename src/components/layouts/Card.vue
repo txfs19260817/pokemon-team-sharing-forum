@@ -18,7 +18,7 @@
         <!-- description below -->
         <div class="bottom">
             <router-link :to="'/team/' + item.id">
-                <span>{{item.alt}}</span>
+                <el-link type="primary">{{item.alt}}</el-link>
             </router-link>
             <div class="info clearfix">
                 <el-breadcrumb separator="/">

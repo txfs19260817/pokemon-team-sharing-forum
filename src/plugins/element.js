@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import {
+    Link,
     Tooltip,
     Menu,
     MenuItem,
@@ -34,6 +35,7 @@ import {
     Loading
 } from 'element-ui'
 
+Vue.use(Link);
 Vue.use(Tooltip);
 Vue.use(Menu);
 Vue.use(MenuItem);

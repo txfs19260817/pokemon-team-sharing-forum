@@ -2,7 +2,7 @@
     <div>
         <teamform ref="formRef" :dialogformvisible.sync="dialogformvisible"></teamform>
         <el-menu class="el-menu-vertical-demo" background-color="#212221" text-color="#ddedf4"
-                 active-text-color="#c83c3c">
+                 active-text-color="#c83c3c" :collapse="true">
 
             <el-menu-item index="1" @click="updateFormVisible">
                 <i class="el-icon-upload2"></i>

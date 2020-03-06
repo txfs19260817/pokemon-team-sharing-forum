@@ -6,7 +6,6 @@
                 list-type="picture-card"
                 accept="image/jpeg,image/jpg,image/png"
                 :limit=1
-                :drag="true"
                 :data="postToken"
                 :before-upload="handleBeforeUpload"
                 :on-exceed="handleExceed"

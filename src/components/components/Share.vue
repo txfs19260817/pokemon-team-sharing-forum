@@ -1,7 +1,7 @@
 <template>
     <span>
         <el-button v-if="destination.includes('twitter')"
-                   type="primary" icon="el-icon-social-twitter" circle
+                   type="primary" icon="el-icon-social-twitter"
                    class="button" data-sharer="twitter"
                    :data-title="shareTitle"
                    data-hashtags="PokeShare"
@@ -9,7 +9,7 @@
                    data-via="poke_share">
         </el-button>
         <el-button v-if="destination.includes('weibo')"
-                   type="danger" icon="el-icon-social-weibo" circle
+                   type="danger" icon="el-icon-social-weibo"
                    class="button" data-sharer="weibo"
                    :data-title="shareTitle"
                    :data-image="team.rentalImgUrl"

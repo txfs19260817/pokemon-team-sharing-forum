@@ -10,7 +10,7 @@
         </el-header>
         <el-container>
             <el-container>
-                <el-aside v-if="showNav" width="200px">
+                <el-aside v-if="showNav" width="10%">
                     <navigator></navigator>
                 </el-aside>
                 <el-main v-loading="loading" element-loading-background="rgba(56, 56, 56, 0.9)">

@@ -19,6 +19,7 @@
     "rental": "Rental team screenshot",
     "showdown": "Pokémon Showdown importable",
     "description": "Description",
+    "created_at": "Created At",
 
     "placeholder": {
       "optional": "Optional",

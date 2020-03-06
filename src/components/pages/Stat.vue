@@ -10,7 +10,7 @@
                     :show-all-levels="false"
                     @change="showStat">
             </el-cascader>
-            <div v-show="statIsAvailable" id="pie" style="width: 800px; height:600px;"></div>
+            <div v-show="statIsAvailable" id="pie" style="width: 800px; height:800px;"></div>
             <h3 v-show="!statIsAvailable">{{$t('stat.noData')}}</h3>
         </template>
     </base-layout>
@@ -19,7 +19,7 @@
 <script>
     import BaseLayout from "../layouts/BaseLayout";
     import {Formats} from "../../assets/data/formats";
-    import {ReconstructObject, SortObjectArrayByValue, IconPath} from "../../assets/utils";
+    import {ReconstructObject, SortObjectArrayByValue, IconPathHTML} from "../../assets/utils";
 
     let echarts = require('echarts');
 
@@ -52,13 +52,12 @@
                     title: {
                         text: this.selectedFormat + ' 使用率统计',
                         subtext: '数据仅包含已上传队伍',
-                        left: 'center'
+                        left: 'left'
                     },
                     tooltip: {
                         trigger: 'item',
                         formatter: function (params, ticket, callback) {
-                            let img = `<img src="` + IconPath(params.data.name, "pokemon") +
-                                `" alt="` + params.data.name + `" />`;
+                            let img = IconPathHTML(params.data.name, "pokemon");
                             let res = params.seriesName + img + "<br />" +
                                 params.data.name + ': ' + params.data.value +
                                 ' (' + params.percent + '%)';
@@ -81,12 +80,7 @@
             },
             getStatByFormat(format) {
                 this.loading = true;
-                this.$http.get('stat', {
-                    withCredentials: true,
-                    params: {
-                        format: format
-                    }
-                }).then(res => {
+                this.$http.get('stat/' + format).then(res => {
                     this.loading = false;
                     if (res.data.code === 200) {
                         this.statData = res.data.data;

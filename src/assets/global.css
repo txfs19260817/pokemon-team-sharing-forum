@@ -17,10 +17,37 @@ html, body, #app {
     padding: 20px 40px;
 }
 
+.el-aside {
+    overflow: hidden;
+}
+
 .el-footer {
     display: flex;
     justify-content: space-between;
     line-height: 60px;
+}
+
+.el-breadcrumb {
+    color: #ddedf4;
+}
+
+.el-breadcrumb__inner a, .el-breadcrumb__inner.is-link {
+    font-weight: 700;
+    text-decoration: none;
+    -webkit-transition: color .2s cubic-bezier(.645, .045, .355, 1);
+    transition: color .2s cubic-bezier(.645, .045, .355, 1);
+    color: #036fb4
+}
+
+.el-breadcrumb__inner a:hover, .el-breadcrumb__inner.is-link:hover {
+    color: #1688b6;
+    cursor: pointer
+}
+
+.el-card {
+    border: 1px solid black;
+    background-color: #2d2d2d !important;
+    box-shadow: 0 2px 4px 0 rgba(231, 231, 231, .40), 0 0 6px 0 rgba(231, 231, 231, 0.04);
 }
 
 .el-pagination.is-background .el-pager li:not(.disabled).active {
@@ -32,12 +59,56 @@ html, body, #app {
 }
 
 .el-tabs {
-    color: #212221 !important;
+    color: #ddedf4 !important;
 }
 
 .el-drawer {
     background-color: #212221;
 }
+
+.el-dialog {
+    background: #2d2d2d;
+}
+
+.el-dialog__title, .el-form-item__label {
+    color: #ddedf4;
+}
+
+.el-tabs--border-card {
+    background: #2d2d2d;
+    border: 1px solid #2d2d2d;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04)
+}
+
+.el-tabs--border-card > .el-tabs__header {
+    background-color: #5c5c5c;
+    border-bottom: 1px solid #4b4b4b;
+    margin: 0
+}
+
+.el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+    color: #c83c3c;
+    background-color: #4b4b4b;
+    border-right-color: #404040;
+    border-left-color: #404040
+}
+
+.el-input__inner {
+    color: #ddedf4;
+    background-color: dimgrey;
+}
+
+.el-upload--picture-card {
+    background-color: dimgrey;
+}
+
+.el-textarea__inner, .el-textarea .el-input__count {
+    border: 0;
+    background-color: dimgrey;
+    color: aliceblue;
+}
+
 
 .home-container {
     height: 100%;
@@ -90,7 +161,7 @@ header::before {
 /* iconfont https://www.jianshu.com/p/8379597e3f97 */
 [class^="el-icon-social"], [class*="el-icon-social"] {
     font-family: "iconfont" !important;
-    font-size: 24px;
+    font-size: 16px;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

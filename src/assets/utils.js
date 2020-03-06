@@ -57,3 +57,10 @@ export function IconPath(name, category, ext = '.png') {
 
     console.log("Error: category [" + category + "] is not valid! ")
 }
+
+/**
+ * @return {string}
+ */
+export function IconPathHTML(name, category) {
+    return `<img src="` + IconPath(name, category) + `" alt="` + name + `" />`;
+}

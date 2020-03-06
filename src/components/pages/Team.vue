@@ -1,89 +1,85 @@
 <template>
-    <base-layout :loading.sync="loading" :fail.sync="fail" :show-nav="false">
-        <template v-slot:header></template>
-        <template v-slot:default>
-            <div v-if="team" class="content">
-                <h2>{{ team.title }}</h2>
-                <el-tabs type="border-card">
-                    <!--                    Main information Tab-->
-                    <el-tab-pane class="info" label="Info">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td>队伍预览图</td>
-                                <td><img :src="team.rentalImgUrl" alt="team.title" width="768" height="432"/></td>
-                            </tr>
-                            <tr>
-                                <td>分享</td>
-                                <td><share :team="team"></share></td>
-                            </tr>
-                            <tr>
-                                <td>{{$t('form.author')}}</td>
-                                <td>{{team.author}}</td>
-                            </tr>
-                            <tr>
-                                <td>上传时间</td>
-                                <td>{{DateConversion(team.created_at)}}</td>
-                            </tr>
-                            <tr>
-                                <td>对战模式</td>
-                                <td>
-                                    <router-link :to="'/formats/'+team.format">
-                                        <el-tag type="info">{{team.format}}</el-tag>
-                                    </router-link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>宝可梦</td>
-                                <td>
-                                    <el-breadcrumb separator=" ">
-                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon1">
-                                            <el-tag type="" v-if="team.pokemon1">{{team.pokemon1}}</el-tag>
-                                        </el-breadcrumb-item>
-                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon2">
-                                            <el-tag type="success" v-if="team.pokemon2">{{team.pokemon2}}</el-tag>
-                                        </el-breadcrumb-item>
-                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon3">
-                                            <el-tag type="info" v-if="team.pokemon3">{{team.pokemon3}}</el-tag>
-                                        </el-breadcrumb-item>
-                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon4">
-                                            <el-tag type="warning" v-if="team.pokemon4">{{team.pokemon4}}</el-tag>
-                                        </el-breadcrumb-item>
-                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon5">
-                                            <el-tag type="danger" v-if="team.pokemon5">{{team.pokemon5}}</el-tag>
-                                        </el-breadcrumb-item>
-                                        <el-breadcrumb-item :to="'/pokemon/'+team.pokemon6">
-                                            <el-tag effect="dark" v-if="team.pokemon6">{{team.pokemon6}}</el-tag>
-                                        </el-breadcrumb-item>
-                                        <div style="display:none;">
-                                            A dummy div to make the cursor appears as a pointing hand,
-                                            when hovering over the last tag.
-                                        </div>
-                                    </el-breadcrumb>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>描述</td>
-                                <td>{{team.description}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </el-tab-pane>
-                    <!--                    Showdown Tab-->
-                    <el-tab-pane class="showdown" label="Showdown">
-                        <el-input id="showdowntext" type="textarea" v-model="team.showdown" :rows="40"></el-input>
-                    </el-tab-pane>
-                </el-tabs>
+    <base-layout :loading.sync="loading" :fail.sync="fail">
+        <div class="wrapper">
+            <div class="box header">[{{team.format}}] {{ team.title }}</div>
+            <div class="box sidebar">
+                <img :src="team.rentalImgUrl" alt="team.title" width="768" height="432"/>
             </div>
-        </template>
-        <template v-slot:footer></template>
+            <div class="box sidebar2">
+                <h3>{{$t('form.description')}}</h3>
+                {{team.description}}
+            </div>
+            <div class="box content">
+                <div class="grid-cell" style="background-color: #002766">
+                    <div class="grid-sub-cell">{{$t('form.author')}}:</div>
+                    <div class="grid-sub-cell">{{team.author}}</div>
+                </div>
+                <div class="grid-cell" style="background-color: #003a8c">
+                    <div class="grid-sub-cell">{{$t('form.created_at')}}:</div>
+                    <div class="grid-sub-cell">{{DateConversion(team.created_at)}}</div>
+                </div>
+                <div class="grid-cell" style="background-color: #0050b3">
+                    <div class="grid-sub-cell">{{$t('form.format')}}:</div>
+                    <div class="grid-sub-cell">
+                        <router-link :to="'/formats/'+team.format">
+                            <el-link style="font-size: 24px" type="primary">{{team.format}}</el-link>
+                        </router-link>
+                    </div>
+                </div>
+                <div class="grid-cell" style="background-color: #003a8c">
+                    <div class="grid-sub-cell">{{$t('pokemon')}}:</div>
+                    <div class="grid-sub-cell">
+                        <el-breadcrumb separator=" ">
+                            <el-breadcrumb-item :to="'/pokemon/'+team.pokemon1">
+                                <img class="icon" :title="team.pokemon1" :alt="team.pokemon1"
+                                     :src="IconPath(team.pokemon1, 'pokemon')">
+                            </el-breadcrumb-item>
+                            <el-breadcrumb-item :to="'/pokemon/'+team.pokemon2">
+                                <img class="icon" :title="team.pokemon1" :alt="team.pokemon2"
+                                     :src="IconPath(team.pokemon2, 'pokemon')">
+                            </el-breadcrumb-item>
+                            <el-breadcrumb-item :to="'/pokemon/'+team.pokemon3">
+                                <img class="icon" :title="team.pokemon1" :alt="team.pokemon3"
+                                     :src="IconPath(team.pokemon3, 'pokemon')">
+                            </el-breadcrumb-item>
+                            <el-breadcrumb-item :to="'/pokemon/'+team.pokemon4">
+                                <img class="icon" :title="team.pokemon1" :alt="team.pokemon4"
+                                     :src="IconPath(team.pokemon4, 'pokemon')">
+                            </el-breadcrumb-item>
+                            <el-breadcrumb-item :to="'/pokemon/'+team.pokemon5">
+                                <img class="icon" :title="team.pokemon1" :alt="team.pokemon5"
+                                     :src="IconPath(team.pokemon5, 'pokemon')">
+                            </el-breadcrumb-item>
+                            <el-breadcrumb-item :to="'/pokemon/'+team.pokemon6">
+                                <img class="icon" :title="team.pokemon1" :alt="team.pokemon6"
+                                     :src="IconPath(team.pokemon6, 'pokemon')">
+                            </el-breadcrumb-item>
+                            <div style="display:none;">
+                                A dummy div to make the cursor appears as a pointer,
+                                when hovering over the last tag.
+                            </div>
+                        </el-breadcrumb>
+                    </div>
+                </div>
+                <div class="grid-cell" style="background-color: #002766">
+                    <div class="grid-sub-cell">{{$t('form.share')}}:</div>
+                    <div class="grid-sub-cell">
+                        <share :team="team"></share>
+                    </div>
+                </div>
+            </div>
+            <div class="box footer">
+                <h3>{{$t('form.showdown')}}</h3>
+                <el-input id="showdowntext" type="textarea" v-model="team.showdown" :rows="30"></el-input>
+            </div>
+        </div>
     </base-layout>
 </template>
 
 <script>
     import BaseLayout from "../layouts/BaseLayout";
     import Share from "../components/Share";
-    import {DateConversion} from "../../assets/utils";
+    import {DateConversion, IconPath} from "../../assets/utils";
 
     export default {
         name: "Team",
@@ -92,7 +88,8 @@
                 loading: false,
                 fail: false,
                 team: null,
-                DateConversion: DateConversion
+                DateConversion: DateConversion,
+                IconPath: IconPath
             }
         },
         components: {
@@ -129,16 +126,82 @@
 </script>
 
 <style scoped>
-    .info {
+    body {
+        margin: 40px;
+    }
+
+    .sidebar {
+        grid-area: sidebar;
+    }
+
+    .sidebar2 {
+        grid-area: sidebar2;
+    }
+
+
+    .header {
+        grid-area: header;
+        background-color: #999;
+    }
+
+    .footer {
+        grid-area: footer;
+        background-color: #999;
+    }
+
+    .wrapper {
+        border-radius: 5px;
+        background-color: #2d2d2d;
+        color: #444;
+        display: grid;
+        grid-gap: 1em;
+        grid-column-gap: 4em;
+        grid-template-areas: "header" "sidebar" "content" "sidebar2" "footer"
+    }
+
+    @media only screen and (min-width: 1350px) {
+        .wrapper {
+            grid-template-columns: 788px auto;
+            grid-template-areas: "header   header" "sidebar  content" "sidebar2 sidebar2" "footer   footer";
+        }
+    }
+
+    .wrapper > div img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    .box {
+        background-color: #444;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 150%;
+    }
+
+    .content {
+        grid-area: content;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        padding: 20px;
     }
 
-    table {
-        border-collapse: collapse;
+    .grid-cell {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 5px;
     }
 
-    table, td, th {
-        border: 1px solid gainsboro;
+    .grid-sub-cell {
+        font-size: 24px;
+        line-height: 24px;
+        padding: 4px;
+    }
+
+    .icon{
+        width: auto;
+        height: 40px;
     }
 </style>
