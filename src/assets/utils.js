@@ -31,7 +31,7 @@ export function SortObjectArrayByValue(arr) {
  * @return {string}
  */
 export function ProcessStr(s) {
-    return s.replace(/[-\s\[\].']/g, '').toLowerCase();
+    return s.replace(/[’-\s\[\].']/g, '').toLowerCase();
 }
 
 /**

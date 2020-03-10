@@ -1,8 +1,8 @@
 <template>
     <base-layout :loading.sync="loading" :fail.sync="fail">
         <template v-slot:default>
-            <h2>{{$t('stat.title')}}</h2>
-            <h3>{{$t('form.placeholder.format')}}</h3>
+            <h2>{{ $t('stat.title') }}</h2>
+            <h3>{{ $t('form.placeholder.format') }}</h3>
             <el-cascader
                     v-model="selectedFormat"
                     :options="formats"
@@ -11,7 +11,7 @@
                     @change="showStat">
             </el-cascader>
             <div v-show="statIsAvailable" id="pie" style="width: 800px; height:800px;"></div>
-            <h3 v-show="!statIsAvailable">{{$t('stat.noData')}}</h3>
+            <h3 v-show="!statIsAvailable">{{ init ? $t('stat.init') : $t('stat.noData') }}</h3>
         </template>
     </base-layout>
 </template>
@@ -32,6 +32,7 @@
             return {
                 loading: false,
                 fail: false,
+                init: true, // first time opening this page
                 // echarts lib
                 echarts: null,
                 // selector
@@ -79,6 +80,7 @@
                 });
             },
             getStatByFormat(format) {
+                this.init = false;
                 this.loading = true;
                 this.$http.get('stat/' + format).then(res => {
                     this.loading = false;
