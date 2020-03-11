@@ -17,8 +17,8 @@ var (
 	HTTPPort     int
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
-	HTTPS_CRT string
-	HTTPS_KEY string
+	HTTPS_CRT    string
+	HTTPS_KEY    string
 
 	ImagePrefixUrl string
 	ImageSavePath  string
@@ -26,10 +26,15 @@ var (
 	ImageAllowExts string
 
 	RelativePath string
-	Root string
+	Root         string
 
-	PageSize  int
+	PageSize        int
 	ReCaptchaSecret string
+
+	EmailUser string
+	EmailPass string
+	EmailHost string
+	EmailPort int
 )
 
 func init() {
@@ -43,6 +48,7 @@ func init() {
 	LoadServer()
 	LoadApp()
 	LoadStatic()
+	LoadEmail()
 }
 
 func LoadBase() {
@@ -78,7 +84,7 @@ func LoadApp() {
 	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
 }
 
-func LoadStatic()  {
+func LoadStatic() {
 	sec, err := Cfg.GetSection("static")
 	if err != nil {
 		log.Fatalf("Fail to get section 'app': %v", err)
@@ -86,4 +92,16 @@ func LoadStatic()  {
 
 	RelativePath = sec.Key("RelativePath").MustString("/assets")
 	Root = sec.Key("Root").MustString("./assets")
+}
+
+func LoadEmail() {
+	sec, err := Cfg.GetSection("email")
+	if err != nil {
+		log.Fatalf("Fail to get section 'app': %v", err)
+	}
+
+	EmailUser = sec.Key("USER").MustString("z.jiang@pokeshare.monster")
+	EmailPass = sec.Key("PASS").MustString("your_pass")
+	EmailHost = sec.Key("USER").MustString("smtp.mail.ru")
+	EmailPort = sec.Key("PORT").MustInt(465)
 }

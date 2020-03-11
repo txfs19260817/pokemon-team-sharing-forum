@@ -167,6 +167,12 @@ func AddTeam(c *gin.Context) {
 		})
 	}()
 
+	defer func() {
+		if err := util.SendNewPostMessage(); err != nil {
+			log.Println(err)
+		}
+	}()
+
 	//if err := c.ShouldBindJSON(&team); err != nil {
 	//	code = e.INVALID_PARAMS
 	//	log.Printf("ERROR: %s\n", err)
@@ -185,13 +191,19 @@ func AddTeam(c *gin.Context) {
 	}
 }
 
-func GetPokemonStat(c *gin.Context)  {
+// @Summary Get Pokemon usage 根据宝可梦获取多个队伍
+// @Produce  json
+// @Param pokemon path string true "format"
+// @Success 200 {object} string "{"code":200,"data":{},"msg":"ok"}"
+// @Failure 400 {object} string "{"code":400,"data":{},"msg":"请求参数错误"}"
+// @Router /api/v1/stat/{format} [get]
+func GetPokemonStat(c *gin.Context) {
 	code := e.SUCCESS
 	data := make(map[string]int)
 	format := c.Param("format")
 	if format == "" {
 		code = e.INVALID_PARAMS
-	} else{
+	} else {
 		data = models.GetPokemonNumByFormat(format)
 	}
 
