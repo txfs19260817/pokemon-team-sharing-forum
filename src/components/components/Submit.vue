@@ -80,7 +80,12 @@
                 <el-form-item
                         :label="$t('form.rental') + ' (' + $t('form.placeholder.optional') + ', ' + $t('form.placeholder.uploadFormat') + ')'"
                         :label-width="formLabelWidth" prop="rentalImgUrl">
-                    <upload :imgurl.sync="form.rentalImgUrl"></upload>
+                    <upload v-if="dialogformvisible" :imgurl.sync="form.rentalImgUrl"></upload>
+                    <div>
+                        This site is protected by reCAPTCHA and the Google
+                        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </div>
                 </el-form-item>
                 <el-form-item :label="$t('form.showdown') + ' (' + $t('form.placeholder.optional') + ')'"
                               :label-width="formLabelWidth" prop="showdown">
@@ -96,7 +101,7 @@
                               :label-width="formLabelWidth" prop="description">
                     <el-input
                             type="textarea"
-                            :rows="3"
+                            :rows="5"
                             :placeholder="$t('form.placeholder.description')"
                             v-model="form.description"
                             maxlength="300"
@@ -117,7 +122,7 @@
                             :closable="false"
                             show-icon>
                     </el-alert>
-                    <showdown2img :pokemonlist="parsedShowdown"></showdown2img>
+                    <showdown2img v-if="form.showdown" :pokemonlist="parsedShowdown"></showdown2img>
                     <span slot="footer" class="dialog-footer">
                         <el-button icon="el-icon-circle-close" circle @click="submitDialogVisible = false"></el-button>
                         <el-button type="primary" icon="el-icon-circle-check" circle @click="submitForm"></el-button>
@@ -175,13 +180,19 @@
                     ],
                     author: [
                         {required: true, message: '请输入作者名', trigger: 'blur'},
-                        {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
+                        {min: 1, max: 40, message: '长度在 1 到 40 个字符', trigger: 'blur'}
                     ],
                     format: [
                         {required: true, message: '请选择对战模式', trigger: 'change'}
                     ],
                     pokemon1: [
-                        {required: true, message: '请选择至少一只宝可梦', trigger: 'change'}
+                        {required: true, message: '请选择至少3只宝可梦', trigger: 'change'}
+                    ],
+                    pokemon2: [
+                        {required: true, message: '请选择至少3只宝可梦', trigger: 'change'}
+                    ],
+                    pokemon3: [
+                        {required: true, message: '请选择至少3只宝可梦', trigger: 'change'}
                     ],
                     showdown: [
                         {min: 0, max: 1600, message: 'Showdown 文本过长', trigger: 'blur'}
@@ -240,7 +251,7 @@
 
                 await this.$refs.form.validate(async valid => {
                     if (!valid) {
-                        this.$message.error('提交内容有误，请修改')
+                        this.$message.error('提交内容有误，请修改');
                         return;
                     }
                     this.$message.warning('提交中，请耐心等待不要重复提交');

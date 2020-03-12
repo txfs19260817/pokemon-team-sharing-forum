@@ -166,3 +166,7 @@ header::before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+.grecaptcha-badge {
+    visibility: hidden;
+}

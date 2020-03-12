@@ -3,11 +3,13 @@
         <template v-slot:header></template>
         <template v-slot:default>
             <h3>{{category}}</h3>
-            <el-row>
+            <transition-group name="fade" tag="el-row">
                 <el-col class="responsive" :span="6" v-for="(item, index) in teams" :key="index" :offset="0">
-                    <card :item="item"><img :src="item.src" @click="lightbox(index)" :alt="item.alt"></card>
+                    <card :item="item">
+                        <img :src="item.src" @click="lightbox(index)" :alt="item.alt" :title="item.alt">
+                    </card>
                 </el-col>
-            </el-row>
+            </transition-group>
             <div class="clearfix"></div>
             <photoswipe ref="photoswipe" :items="teams"></photoswipe>
         </template>
@@ -164,5 +166,15 @@
     .el-row img {
         width: 100%;
         display: block;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity .5s;
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
     }
 </style>

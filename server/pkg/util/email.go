@@ -17,11 +17,12 @@ func sendMail(mailTo []string, subject string, body string) error {
 
 	d := gomail.NewDialer(setting.EmailHost, setting.EmailPort, setting.EmailUser, setting.EmailPass)
 
-	cert, err := tls.LoadX509KeyPair(setting.HTTPS_CRT, setting.HTTPS_KEY)
-	if err != nil {
-		return err
-	}
-	d.TLSConfig = &tls.Config{Certificates: []tls.Certificate{cert}}
+	// cert, err := tls.LoadX509KeyPair(setting.HTTPS_CRT, setting.HTTPS_KEY)
+	// if err != nil {
+	// 	return err
+	// }
+	// d.TLSConfig = &tls.Config{Certificates: []tls.Certificate{cert}}
+	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	return d.DialAndSend(m)
 }

@@ -54,7 +54,6 @@
                 await this.recaptcha();
                 if (!('token' in this.postToken)) {
                     this.$message.error('reCAPTCHA get token failed! Please contact administrator. ');
-
                     return false
                 }
                 let test = /^image\/(jpeg|png|jpg)$/.test(file.type);

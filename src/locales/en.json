@@ -25,7 +25,7 @@
       "optional": "Optional",
       "format": "Please enter the suitable format here",
       "pokemon": "Please enter the Pokémon name here",
-      "uploadFormat": "Supported image formats: png, jpg, jpeg",
+      "uploadFormat": "Supported image formats: png, jpg, jpeg, no larger than 2 MB",
       "showdown": "Please paste the Showdown importable here",
       "description":"Please limit the description up to 300 words. You can also paste a reference link or contact information."
     }

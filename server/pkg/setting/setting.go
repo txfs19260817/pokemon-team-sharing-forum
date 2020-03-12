@@ -102,6 +102,6 @@ func LoadEmail() {
 
 	EmailUser = sec.Key("USER").MustString("z.jiang@pokeshare.monster")
 	EmailPass = sec.Key("PASS").MustString("your_pass")
-	EmailHost = sec.Key("USER").MustString("smtp.mail.ru")
+	EmailHost = sec.Key("HOST").MustString("smtp.mail.ru")
 	EmailPort = sec.Key("PORT").MustInt(465)
 }

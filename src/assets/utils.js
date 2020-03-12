@@ -1,4 +1,3 @@
-import {BattlePokedex} from "./data/pokedex"
 import {BattleMovedex} from "./data/moves"
 
 /**
@@ -11,7 +10,7 @@ export function DateConversion(timestamp) {
     let D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
     let h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
     let m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-    let s = date.getSeconds();
+    let s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
     return Y + M + D + h + m + s
 }
 
@@ -47,7 +46,7 @@ export function IconPath(name, category, ext = '.png') {
     }
     if (category === "movetypes" || category === "movetype") {
         name = BattleMovedex[name].type.toLowerCase();
-        return process.env.VUE_APP_MOVETYPE_ICONS + name + this.ext
+        return process.env.VUE_APP_MOVETYPE_ICONS + name + ext
     }
     if (category === "types" || category === "type") {
         let lang = "eng";
@@ -62,5 +61,5 @@ export function IconPath(name, category, ext = '.png') {
  * @return {string}
  */
 export function IconPathHTML(name, category) {
-    return `<img src="` + IconPath(name, category) + `" alt="` + name + `" />`;
+    return `<img src="` + IconPath(name, category) + `" alt="` + name + `" title="`+ name + `" />`;
 }

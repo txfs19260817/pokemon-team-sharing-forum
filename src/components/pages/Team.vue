@@ -51,23 +51,23 @@
                                          :src="IconPath(team.pokemon1, 'pokemon')">
                                 </el-breadcrumb-item>
                                 <el-breadcrumb-item :to="'/pokemon/'+team.pokemon2">
-                                    <img class="icon" :title="team.pokemon1" :alt="team.pokemon2"
+                                    <img class="icon" :title="team.pokemon2" :alt="team.pokemon2"
                                          :src="IconPath(team.pokemon2, 'pokemon')">
                                 </el-breadcrumb-item>
                                 <el-breadcrumb-item :to="'/pokemon/'+team.pokemon3">
-                                    <img class="icon" :title="team.pokemon1" :alt="team.pokemon3"
+                                    <img class="icon" :title="team.pokemon3" :alt="team.pokemon3"
                                          :src="IconPath(team.pokemon3, 'pokemon')">
                                 </el-breadcrumb-item>
                                 <el-breadcrumb-item :to="'/pokemon/'+team.pokemon4">
-                                    <img class="icon" :title="team.pokemon1" :alt="team.pokemon4"
+                                    <img class="icon" :title="team.pokemon4" :alt="team.pokemon4"
                                          :src="IconPath(team.pokemon4, 'pokemon')">
                                 </el-breadcrumb-item>
                                 <el-breadcrumb-item :to="'/pokemon/'+team.pokemon5">
-                                    <img class="icon" :title="team.pokemon1" :alt="team.pokemon5"
+                                    <img class="icon" :title="team.pokemon5" :alt="team.pokemon5"
                                          :src="IconPath(team.pokemon5, 'pokemon')">
                                 </el-breadcrumb-item>
                                 <el-breadcrumb-item :to="'/pokemon/'+team.pokemon6">
-                                    <img class="icon" :title="team.pokemon1" :alt="team.pokemon6"
+                                    <img class="icon" :title="team.pokemon6" :alt="team.pokemon6"
                                          :src="IconPath(team.pokemon6, 'pokemon')">
                                 </el-breadcrumb-item>
                                 <div style="display:none;">

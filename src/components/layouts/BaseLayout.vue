@@ -36,7 +36,11 @@
                 </slot>
                 <slot name="footer-middle">
                     <!-- dummy element-->
-                    <div style="height: 62px; width: 62px;"></div>
+                    <div style="height: 62px;">
+                        This site is protected by reCAPTCHA and the Google
+                        <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                        <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    </div>
                 </slot>
                 <slot name="footer-right">
                     <language></language>

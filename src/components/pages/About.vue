@@ -21,8 +21,13 @@
             或者发送邮件至
             <a href="mailto:z.jiang@pokeshare.monster?subject=Pokemon%20team%20sharing%20forum%20">z.jiang@pokeshare.monster</a>进行反馈。
             如果您认为网站上所发表的队伍侵犯了您的创作权，请发送邮件并附上相关证明。
-            <h3>License</h3>
-            本网站使用的资源（图标等）版权归 © Nintendo/Creatures Inc./GAME FREAK Inc. 所有
+            <h3>Acknowledgement</h3>
+            <p>本网站使用的资源（图标等）版权归 © Nintendo/Creatures Inc./GAME FREAK Inc. 所有</p>
+            <p>
+                This site is protected by reCAPTCHA and the Google
+                <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+                <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+            </p>
         </template>
     </base-layout>
 </template>

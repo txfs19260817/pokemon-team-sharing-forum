@@ -83,7 +83,7 @@ func init() {
 func TeamValidator(team *models.Team, r *http.Request) (error string, valid bool) {
 	rules := govalidator.MapData{
 		"title":        []string{"required", "between:1,50"},
-		"author":       []string{"required", "between:1,30"},
+		"author":       []string{"required", "between:1,40"},
 		"format":       []string{"in_formats"},
 		"pokemon1":     []string{"in_pokemon"},
 		"pokemon2":     []string{"in_pokemon"},

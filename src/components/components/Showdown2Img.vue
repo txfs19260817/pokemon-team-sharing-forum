@@ -1,19 +1,18 @@
 <template>
-    <div id="preview" class="team-outer" v-show="true">
+    <div id="preview" class="team-outer">
         <ul>
             <li v-for="(pm, index) in pokemon" :id="'pm'+index">
                 <div class="team-pokemon">
                     <div class="team-pokemon-info">
                         <div class="team-pokemon-info-basic">
                             <div class="team-pokemon-info-basic-pokemon-icon">
-                                <img class="pokemon-icon" :alt="pm.name" :src="iconPath(pm.name, pmIconBaseUrl)"/>
+                                <img class="pokemon-icon" :alt="pm.name" :src="IconPath(pm.name, 'pokemon')"/>
                             </div>
                             <div class="team-pokemon-info-basic-item-icon">
-                                <img class="item-icon" :alt="pm.item" :src="iconPath(pm.item, itemIconBaseUrl)"/>
+                                <img class="item-icon" :alt="pm.item" :src="IconPath(pm.item, 'items')"/>
                             </div>
                             <div class="team-pokemon-info-basic-type-icons">
-                                <img v-for="type in pokedex[processStr(pm.name)].types"
-                                     :src="iconPath(type, typeIconBaseUrl)" :alt="type"/>
+                                <img v-for="type in pokedex[processStr(pm.name)].types" :src="IconPath(type, 'types')" :alt="type"/>
                             </div>
                         </div>
                         <div class="team-pokemon-info-name">{{pm.name + ' Lv. ' + (pm.level ? pm.level : 100)}}</div>
@@ -22,7 +21,7 @@
                     </div>
                     <div class="team-pokemon-moves">
                         <div class="team-pokemon-move" v-for="m in pm.moves">
-                            <img :alt="m" :src="iconPath(m, movetypeIconBaseUrl)"/>
+                            <img :alt="m" :src="IconPath(m, 'movetypes')"/>
                             <div class="move-name">{{m}}</div>
                         </div>
                     </div>
@@ -35,6 +34,7 @@
 <script>
     import {BattlePokedex} from "../../assets/data/pokedex"
     import {BattleMovedex} from "../../assets/data/moves"
+    import {IconPath} from "../../assets/utils";
 
     export default {
         name: "showdown2img",
@@ -48,11 +48,7 @@
                 pokedex: {},
                 movedex: {},
                 pokemon: this.pokemonlist,
-                pmIconBaseUrl: process.env.VUE_APP_ICONS + '2d/',
-                itemIconBaseUrl: process.env.VUE_APP_ICONS + 'items/',
-                typeIconBaseUrl: process.env.VUE_APP_ICONS + 'types/',
-                movetypeIconBaseUrl: process.env.VUE_APP_ICONS + 'movetypes/',
-                ext: '.png',
+                IconPath: IconPath,
             }
         },
         watch: {
@@ -64,19 +60,6 @@
         methods: {
             processStr(s) {
                 return s.replace(/[’-\s\[\].']/g, '').toLowerCase();
-            },
-            iconPath(name, baseUrl) {
-                name = this.processStr(name);
-                if (baseUrl.substr(baseUrl.length - 10) === "movetypes/") {
-                    name = this.movedex[name].type.toLowerCase();
-                    return baseUrl + name + this.ext
-                }
-                if (baseUrl.substr(baseUrl.length - 6) === "types/") {
-                    let lang = "eng";
-                    let filename = ["type", name, lang];
-                    return baseUrl + filename.join('-') + this.ext
-                }
-                return baseUrl + name + this.ext
             }
         },
         created() {
@@ -121,27 +104,27 @@
         padding-right: 43px;
     }
 
-    .team-outer ul li .team-pokemon {
+    .team-pokemon {
         height: inherit;
         background: rgb(0, 174, 181);
         display: flex;
         flex-shrink: 0;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info {
+    .team-pokemon-info {
         flex: 0 0 50%;
         overflow: hidden;
         display: flex;
         flex-direction: column;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info .team-pokemon-info-basic {
+    .team-pokemon-info-basic {
         flex: 0 0 40%;
         overflow: hidden;
         display: flex;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info .team-pokemon-info-basic .team-pokemon-info-basic-pokemon-icon {
+    .team-pokemon-info-basic-pokemon-icon {
         flex: 0 0 25%;
         position: relative;
     }
@@ -153,7 +136,7 @@
         /* width: 70%; */
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info .team-pokemon-info-basic .team-pokemon-info-basic-item-icon {
+    .team-pokemon-info-basic-item-icon {
         flex: 0 0 15%;
         position: relative;
     }
@@ -164,16 +147,16 @@
         bottom: 10%;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info .team-pokemon-info-basic .team-pokemon-info-basic-type-icons {
+    .team-pokemon-info-basic-type-icons {
         flex: 0 0 60%;
         overflow: hidden;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info .team-pokemon-info-basic .team-pokemon-info-basic-type-icons img {
+    .team-pokemon-info-basic-type-icons img {
         width: 85%;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info .team-pokemon-info-name {
+    .team-pokemon-info-name {
         flex: 0 0 20%;
         text-align: left;
         text-indent: 4px;
@@ -185,7 +168,7 @@
         display: -webkit-flex;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info .team-pokemon-info-ability {
+    .team-pokemon-info-ability {
         flex: 0 0 20%;
         text-align: left;
         text-indent: 4px;
@@ -197,7 +180,7 @@
         display: -webkit-flex;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-info .team-pokemon-info-item {
+    .team-pokemon-info-item {
         flex: 0 0 20%;
         text-align: left;
         text-indent: 4px;
@@ -209,7 +192,7 @@
         display: -webkit-flex;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-moves {
+    .team-pokemon-moves {
         flex: 0 0 50%;
         overflow: hidden;
         background-color: white;
@@ -217,7 +200,7 @@
         flex-direction: column;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-moves .team-pokemon-move {
+    .team-pokemon-move {
         flex: 0 0 25%;
         overflow: hidden;
         display: flex;
@@ -225,7 +208,7 @@
         justify-content: flex-start;
     }
 
-    .team-outer ul li .team-pokemon .team-pokemon-moves .team-pokemon-move img {
+    .team-pokemon-move img {
         margin: 0 2px;
         width: 15%;
     }

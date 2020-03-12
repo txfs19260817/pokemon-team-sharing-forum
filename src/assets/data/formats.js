@@ -45,6 +45,9 @@ let Formats = [{
     value: 'Gen 8 Singles',
     label: 'Gen 8 Singles',
     children: [{
+        value: '[Gen 8] Battle Stadium Singles',
+        label: '[Gen 8] Battle Stadium Singles',
+    }, {
         value: '[Gen 8] OU',
         label: '[Gen 8] OU',
     }, {
@@ -65,22 +68,19 @@ let Formats = [{
     }, {
         value: '[Gen 8] Anything Goes',
         label: '[Gen 8] Anything Goes',
-    }, {
-        value: '[Gen 8] Battle Stadium Singles',
-        label: '[Gen 8] Battle Stadium Singles',
-    }]
+    },]
 }, {
     value: 'Gen 8 Doubles',
     label: 'Gen 8 Doubles',
     children: [{
+        value: '[Gen 8] Battle Stadium Doubles',
+        label: '[Gen 8] Battle Stadium Doubles',
+    }, {
         value: '[Gen 8] Doubles OU',
         label: '[Gen 8] Doubles OU',
     }, {
         value: '[Gen 8] Doubles UU',
         label: '[Gen 8] Doubles UU',
-    }, {
-        value: '[Gen 8] Battle Stadium Doubles',
-        label: '[Gen 8] Battle Stadium Doubles',
     }, {
         value: '[Gen 8] Galar Newcomers',
         label: '[Gen 8] Galar Newcomers',
