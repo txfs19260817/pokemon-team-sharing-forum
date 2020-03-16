@@ -47,11 +47,11 @@ func InitRouter() *gin.Engine {
 		})
 
 	} else if setting.RunMode == "debug" {
-		r.Use(middleware.Cors()) // Cross-Origin Resource Sharing
+		log.Println("debug mode")
 	} else {
 		log.Fatalln("Unknown RunMode")
 	}
-
+	r.Use(middleware.Cors()) // Cross-Origin Resource Sharing
 	r.Static(setting.RelativePath, setting.Root)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

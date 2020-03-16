@@ -14,9 +14,6 @@
                     <navigator></navigator>
                 </el-aside>
                 <el-main v-loading="loading" element-loading-background="rgba(56, 56, 56, 0.9)">
-                    <div v-if="loading" class="loading">
-                        <h2>Loading...</h2>
-                    </div>
                     <div v-if="fail" class="loading">
                         <h2>Sobble's Sitrus Berry has been took away :'(</h2>
                         <div class="error-image">
