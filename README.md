@@ -11,9 +11,9 @@ PokéShare is a web platform that allows trainers to share awesome teams with ot
 - Search teams that contain specific Pokémon or under certain battle format
 
 ![Search](https://github.com/txfs19260817/pokemon-team-sharing-forum/blob/master/docs/search.jpg)
-- Check the usage rate under specific battle format
+- Check the Pokémon usages rates under specific battle format
 
-![Usage Rate](https://github.com/txfs19260817/pokemon-team-sharing-forum/blob/master/docs/usage.jpg)
+![Usage Rates](https://github.com/txfs19260817/pokemon-team-sharing-forum/blob/master/docs/usage.jpg)
 
 ## Mobile Devices Entry
 
