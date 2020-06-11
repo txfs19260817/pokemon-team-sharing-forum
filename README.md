@@ -1,8 +1,16 @@
 # pokemon-team-sharing-forum
-# Looking forward to a great logo & volunteers to help internationalize our website. Pull Requests Welcome!
+PokéShare is a web platform that allows trainers to share awesome teams with others around the world. 
+
+## Features
+- RESTful API backend written in Go
+- Vue.js-based frontend
+- Convert text teams in Showdown format to an image that looks like the Rental Team Code in Pokémon Sword and Shield
+- Search teams that contain specific Pokémon or under certain battle format
+- Check the usage rate under specific battle format
+
 ## Project setup
 ## Backend
-Change directory to `server` and import the .sql file. Then, edit `app.ini` and run
+Change directory to `server` and import the .sql file. Then, configure `app.ini` and run
 ```
 go run main.go
 ```
@@ -30,4 +38,3 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - [ ] i18n
 - [x] filter results by formats and pokemon
 - [x] About Page
-- [ ] Home Page design
